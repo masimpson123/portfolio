@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Boost Prototype</title>
+<link rel="shortcut icon" href="../../icons/favicon.ico" type="image/x-icon" />
+
+<script>
+
+var workoutKind = "0";
+var workoutIntensity = "0";
+
+var exerciseCounter = 0;
+
+function toggle_1_1(){
+document.getElementById("toggle1").style.backgroundColor="#57bd80";
+document.getElementById("toggle2").style.backgroundColor="#666666";
+document.getElementById("toggle3").style.backgroundColor="#666666";
+document.getElementById("toggle4").style.backgroundColor="#666666";
+workoutKind = "shoulder";
+}
+function toggle_1_2(){
+document.getElementById("toggle1").style.backgroundColor="#666666";
+document.getElementById("toggle2").style.backgroundColor="#57bd80";
+document.getElementById("toggle3").style.backgroundColor="#666666";
+document.getElementById("toggle4").style.backgroundColor="#666666";
+workoutKind = "core";
+}
+function toggle_1_3(){
+document.getElementById("toggle1").style.backgroundColor="#666666";
+document.getElementById("toggle2").style.backgroundColor="#666666";
+document.getElementById("toggle3").style.backgroundColor="#57bd80";
+document.getElementById("toggle4").style.backgroundColor="#666666";
+workoutKind = "leg";
+}
+function toggle_1_4(){
+document.getElementById("toggle1").style.backgroundColor="#666666";
+document.getElementById("toggle2").style.backgroundColor="#666666";
+document.getElementById("toggle3").style.backgroundColor="#666666";
+document.getElementById("toggle4").style.backgroundColor="#57bd80";
+workoutKind = "cardio";
+}
+function toggle_2_1(){
+document.getElementById("toggle5").style.backgroundColor="#57bd80";
+document.getElementById("toggle6").style.backgroundColor="#666666";
+document.getElementById("toggle7").style.backgroundColor="#666666";
+workoutIntensity = "lighter intensity";
+}
+function toggle_2_2(){
+document.getElementById("toggle5").style.backgroundColor="#666666";
+document.getElementById("toggle6").style.backgroundColor="#57bd80";
+document.getElementById("toggle7").style.backgroundColor="#666666";
+workoutIntensity = "heavier intensity";
+}
+function toggle_2_3(){
+document.getElementById("toggle5").style.backgroundColor="#666666";
+document.getElementById("toggle6").style.backgroundColor="#666666";
+document.getElementById("toggle7").style.backgroundColor="#57bd80";
+workoutIntensity = "same intensity";
+}
+function changeLocation() {
+alert("You're definitely at Gold's Gym.");
+}
+function customizeProfile() {
+alert("Customizing your profile is outside the bounds of this prototype.");
+}
+function revealInterface2(){
+if (workoutKind == "0"){
+return;
+} else if (workoutIntensity == "0"){
+return;
+} else {
+document.getElementById("interface1").style.display = "none";
+document.getElementById("interface2").style.display = "block";
+document.getElementById("boostBtn").style.display = "none";
+document.getElementById("nextBtn").style.display = "block";
+document.getElementById("routineCopy").innerHTML = workoutKind.concat(" based - ", workoutIntensity);
+nextExercise();
+}
+}
+function nextExercise(){
+	if (exerciseCounter == 0) {
+		var image = document.getElementById("exerciseImage");
+		image.src = "Images/exercise1.jpg";
+		document.getElementById("exerciseCopy").innerHTML = "shoulder press [45x - 55lbs.]"
+		document.getElementById("circle1").style.backgroundColor = "#57bd80"; 
+		exerciseCounter += 1;
+	} else if (exerciseCounter == 1) {
+		var image = document.getElementById("exerciseImage");
+		image.src = "Images/exercise2.jpg";
+		document.getElementById("exerciseCopy").innerHTML = "tricep row [30x - 60lbs.]"
+		document.getElementById("circle2").style.backgroundColor = "#57bd80"; 
+		exerciseCounter += 1;
+	} else if (exerciseCounter == 2) {
+		var image = document.getElementById("exerciseImage");
+		image.src = "Images/exercise3.jpg";
+		document.getElementById("exerciseCopy").innerHTML = "lunges [60x - body weight]"
+		document.getElementById("circle3").style.backgroundColor = "#57bd80"; 
+		exerciseCounter += 1;
+	} else if (exerciseCounter == 3) {
+		var image = document.getElementById("exerciseImage");
+		image.src = "Images/exercise4.jpg";
+		document.getElementById("exerciseCopy").innerHTML = "squats [50x - body weight]"
+		document.getElementById("circle4").style.backgroundColor = "#57bd80"; 
+		exerciseCounter += 1;
+	} else if (exerciseCounter == 4) {
+		var image = document.getElementById("exerciseImage");
+		image.src = "Images/exercise5.jpg";
+		document.getElementById("exerciseCopy").innerHTML = "lateral thrust [45x - 55lbs.]"
+		document.getElementById("circle5").style.backgroundColor = "#57bd80"; 
+		exerciseCounter = 0;
+		document.getElementById("nextBtn").style.display = "none";
+		document.getElementById("doneBtn").style.display = "block";
+	}
+}
+function exerciseDone(){
+document.getElementById("interface2").style.display = "none";
+document.getElementById("interface1").style.display = "block";
+document.getElementById("doneBtn").style.display = "none";
+document.getElementById("boostBtn").style.display = "block";
+workoutKind = "0";
+workoutIntensity = "0";
+	var circles = document.getElementsByClassName("circle")
+	for (i=0; i < circles.length; i++) {
+	circles[i].style.backgroundColor = "#666666"
+	}
+	var items = document.getElementsByClassName("item")
+	for (i=0; i < items.length; i++) {
+	items[i].style.backgroundColor = "#666666"
+	}
+}
+</script>
+<style>
+body{
+margin:0px;
+padding:0px;
+overflow:hidden;
+cursor:default;
+}
+	@font-face {
+	font-family: universCondensed;
+	src: url(universCondensed.otf);
+	}
+	@font-face {
+	font-family: universLightCondensed;
+	src: url(universLightCondensed.otf);
+	}
+	.copyLight{
+	font-family:"universLightCondensed";
+	font-size:.7em;
+	color:#ffffff;
+	letter-spacing:.5px;
+	}
+	.copyRegular{
+	font-family:"universCondensed";
+	font-size:.8em;
+	color:#57bd80;
+	letter-spacing:.5px;
+	}
+		.iPhoneHolder{
+		position:absolute;
+		top:10px;
+		left:100px;
+		background-color:#ffffff;
+		}
+		.iPhone{
+		position:absolute;
+		width:340px;
+		}
+	.house{
+	position:relative;
+	margin-left:134px;
+	margin-top:113px;
+	width:270px;
+	height:479px;
+	z-index:1;
+	overflow:hidden;
+	background: repeating-linear-gradient(
+  	315deg,
+  	rgba(87, 189, 128, .15),
+  	rgba(87, 189, 128, .15) 1px,
+  	rgba(255, 255, 255, 1) 1px,
+  	rgba(255, 255, 255, 1) 8px
+	);
+	}
+.nav{
+background-color:#57bd80;
+width:100%;
+height:38px;
+overflow:hidden;
+float:left;
+}
+.statusBar{
+position:absolute;
+width:98%;
+margin-top:2px;
+margin-left:2px;
+opacity:.75;
+}
+.boostBrandHolder{
+width:100%;
+}
+.boostBrandSubholder{
+width:80px;
+margin-left:auto;
+margin-right:auto;
+}
+.boostBrand{
+width:100%;
+margin-top:-21px;
+}
+.profileIcon{
+width:8px;
+}
+.profileBtn{
+position:absolute;
+margin-top:-43px;
+margin-left:10px;
+cursor:pointer;
+}
+	.questionHolder{
+	width:100%;
+	float:left;
+	margin-top:18px;
+	}
+	.question{
+	text-align:center;
+	}
+	.menu{
+	width:100%;
+	float:left;
+	margin-top:5px;
+	}
+	.btnText{
+	text-align:center;
+	line-height:32px;
+	}
+	.item4Holder{
+	width:256px;
+	margin-left:auto;
+	margin-right:auto;
+	}
+	.item3Holder{
+	width:192px;
+	margin-left:auto;
+	margin-right:auto;
+	}
+	.item{
+	width:60px;
+	height:28px;
+	background-color: #666666;
+	float:left;
+	margin-left:2px;
+	margin-right:2px;
+	cursor:pointer;
+	}
+	.space{
+	background-color:#57bd80;
+	width:100%;
+	height:2px;
+	float:left;
+	margin-top:18px;
+	}
+		.boostMapHolder_1{
+		float:left;
+		margin-top:5px;
+		}
+		.boostMap_1{
+		width:100%;
+		float:left;
+		}
+		.mapOption1{
+		position:absolute;
+		height:28px;
+		width:80px;
+		background-color:#57bd80;
+		margin-left:7px;
+		margin-top:5px;
+		text-align:center;
+		line-height:32px;
+		cursor:pointer;
+		}
+		.mapOption2{
+		background-color:#666666;
+		margin-top:38px;
+		}
+.boostBtnHolder{
+position:absolute;
+top:340px;
+width:100%;
+}
+.boostBtnSubholder{
+width:120px;
+margin-left:auto;
+margin-right:auto;
+}
+.boostBtn{
+cursor:pointer;
+width:100%;
+}
+.nextBtn{
+display:none;
+cursor:pointer;
+width:100%;
+}
+.doneBtn{
+display:none;
+cursor:pointer;
+width:100%;
+}
+	#interface2{
+	display:none;
+	}
+	.exerciseImageHolder{
+    width:270px;
+    float:left;
+    }
+    .exerciseImage{
+    width:270px;
+    float:left;
+    }
+    .specialSpace{
+    margin-top:0px;
+    }
+	.circleHolder{
+	margin-top:24px;
+	width:100%;
+	float:left;
+	}
+	.circleSubholder{
+	width:84px;
+	margin-left:auto;
+	margin-right:auto;
+	}
+	.circle{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4c4c4c;
+    float:left;
+    margin-left:5px;
+    margin-right:5px;
+    }
+    .routineCopyHolder{
+    margin-top:12px;
+    width:100%;
+    float:left;
+    }
+    .routineCopy{
+    text-align:center;
+    }
+    .exerciseCopyHolder{
+    margin-top:6px;
+    width:100%;
+    float:left;
+    }
+    .exerciseCopy{
+    text-align:center;
+    color:#57bd80;
+    }
+</style>
+</head>
+
+<body>
+	
+	<div class="house">
+		
+		<div class="nav">
+			<div class="statusBar">
+				<img class="statusBar" src="Images/statusBar.png">
+			</div>
+			<div class="boostBrandHolder">
+				<div class="boostBrandSubholder">
+					<img class="boostBrand" src="Images/boostBrand.png">
+				</div>
+			</div>
+			<div class="profileBtn copyLight" onclick="customizeProfile()">
+				<img class="profileIcon" src="Images/profileIcon.png">
+				profile
+			</div>
+		</div>
+		
+		<div id="interface1">
+		
+			<div class="questionHolder">
+				<div class="copyRegular question">What kind of workout today?</div>
+			</div>
+		
+			<div class="menu copyLight">
+				<div class="item4Holder">
+					<div class="item btnText" id="toggle1" onclick="toggle_1_1()">shoulder</div>
+					<div class="item btnText" id="toggle2" onclick="toggle_1_2()">core</div>
+					<div class="item btnText" id="toggle3" onclick="toggle_1_3()">leg</div>
+					<div class="item btnText" id="toggle4" onclick="toggle_1_4()">cardio</div>
+				</div>
+			</div>
+		
+			<div class="space"></div>
+			
+			<div class="questionHolder">
+				<div class="copyRegular question">What intensity of workout today?</div>
+			</div>
+		
+			<div class="menu copyLight">
+				<div class="item3Holder">
+					<div class="item btnText" id="toggle5" onclick="toggle_2_1()">lighter</div>
+					<div class="item btnText" id="toggle6" onclick="toggle_2_2()">heavier</div>
+					<div class="item btnText" id="toggle7" onclick="toggle_2_3()">same</div>
+				</div>
+			</div>
+		
+			<div class="space"></div>
+			
+			<div class="questionHolder">
+				<div class="copyRegular question">Where are you?</div>
+			</div>
+		
+			<div class="boostMapHolder_1 copyLight btnText">
+				<div class="mapOption1 btnText">Golds Gym</div>
+				<div class="mapOption1 mapOption2 btnText" onclick="changeLocation()">No, I'm not...</div>
+				<img class="boostMap_1" src="Images/boostMap_1.png">
+			</div>
+		
+		</div> <!--close interface1-->
+		
+		<div id="interface2">
+			
+			<div class="exerciseImageHolder">
+				<img class="exerciseImage" id="exerciseImage" src="">
+			</div>
+			
+			<div class="space specialSpace"></div>
+			
+			<div class="circleHolder">
+				<div class="circleSubholder">
+					<div class="circle" id="circle1"></div>
+					<div class="circle" id="circle2"></div>
+					<div class="circle" id="circle3"></div>
+					<div class="circle" id="circle4"></div>
+					<div class="circle" id="circle5"></div>
+				</div>
+			</div>
+			
+			<div class="routineCopyHolder">
+				<div id="routineCopy" class="copyRegular routineCopy"></div>
+			</div>
+			<div class="exerciseCopyHolder">
+				<div id="exerciseCopy" class="copyLight exerciseCopy"></div>
+			</div>
+			
+		</div> <!--close interface2-->
+		
+		<div class="boostBtnHolder btnText">
+			<div class="boostBtnSubholder">
+				<img id="boostBtn" class="boostBtn" src="Images/boostBtn.png" onclick="revealInterface2()">
+				<img id="nextBtn" class="nextBtn" src="Images/nextBtn.png" onclick="nextExercise()">
+				<img id="doneBtn" class="doneBtn" src="Images/doneBtn.png" onclick="exerciseDone()">
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="iPhoneHolder">
+		<img class="iPhone" src="Images/iPhone.png">
+	</div>
+
+</body>
+
+</html>

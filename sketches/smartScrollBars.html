@@ -1,0 +1,337 @@
+<!doctype html>
+<html leng="en">
+<head>
+	<meta charset="utf-8">
+	<title>Development Sketch</title>
+	<meta name="description" content="Development Sketches">
+	<meta name="author" content="SitePoint">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
+	<script>
+	
+	var scrollIntervalHolder;
+	var autoScrollIntervalHolder;
+	var mouseDownIntervalHolder;
+	var windowHeight = window.innerHeight;
+	var mikesFavoriteOffset;
+	var contentHolderOffset;
+	var correctScrollTop;
+	var currentScroll;
+	var mouseDownIntervalCounter = 0;
+	var currentDirection;
+	
+	function setUp() {
+		windowHeight = window.innerHeight;
+		var blocks = document.getElementsByClassName('content');
+		for(i=0; i < blocks.length; i++){
+			blocks[i].style.opacity = .7 - (.5 * Math.random());
+			blocks[i].style.backgroundColor = getRandomColor();
+		}
+		document.getElementById('contentHolderHolder').style.height=windowHeight-40-150-50+"px"; //button height, spacing between elements, header, footer
+		document.getElementById('contentHolder').style.height=windowHeight-40-150-50+"px";
+		console.log(document.getElementById('mikesFavorite').offsetTop);
+	}
+	
+	function goodResize(){
+		windowHeight = window.innerHeight;
+		document.getElementById('contentHolderHolder').style.height=windowHeight-40-150-50+"px"
+		document.getElementById('contentHolder').style.height=windowHeight-40-150-50+"px"
+	}
+	
+	function getRandomColor() {
+	  var letters = '0123456789ABCDEF';
+	  var color = '#';
+	  for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	  }
+	  return color;
+	}
+	
+	function scrollTracker(){
+		console.log(document.getElementById('contentHolder').scrollTop);
+	}
+	
+	function buttonDown(x){
+		currentDirection = x;
+		mouseDownIntervalHolder = setInterval(mouseDownInterval,10);
+		if(x === 'scrollDown'){
+			document.getElementById('contentHolder').scrollTop = document.getElementById('contentHolder').scrollTop + 50;
+		} else {
+			document.getElementById('contentHolder').scrollTop = document.getElementById('contentHolder').scrollTop - 50;
+		}
+	}
+
+	function buttonUp(){
+		clearInterval(scrollIntervalHolder);
+		clearInterval(mouseDownIntervalHolder);
+		mouseDownIntervalCounter = 0;
+	}
+
+	function buttonOut(){
+		clearInterval(scrollIntervalHolder);
+		clearInterval(mouseDownIntervalHolder);
+		mouseDownIntervalCounter = 0;
+	}
+	
+	function mouseDownInterval(){
+		mouseDownIntervalCounter = mouseDownIntervalCounter + 1;
+		if (mouseDownIntervalCounter === 50) {
+		clearInterval(mouseDownIntervalHolder);
+		mouseDownIntervalCounter = 0;
+			if(currentDirection === 'scrollDown'){
+			scrollIntervalHolder = setInterval(scrollIntervalUp,10);
+			} else {
+			scrollIntervalHolder = setInterval(scrollIntervalDown,10);
+			}
+		}
+	}
+	
+	function scrollIntervalUp(){
+		document.getElementById('contentHolder').scrollTop = document.getElementById('contentHolder').scrollTop + 8;
+	}
+
+	function scrollIntervalDown(){
+		document.getElementById('contentHolder').scrollTop = document.getElementById('contentHolder').scrollTop - 8;
+	}
+
+	function mikesFavorite(){
+		contentHolderOffset = document.getElementById('contentHolder').offsetTop; //distance between top of window and top of scrolling panel
+		mikesFavoriteOffset = document.getElementById('mikesFavorite').offsetTop; //distance between top of window and my favorite div
+		correctScrollTop = mikesFavoriteOffset - contentHolderOffset;
+		currentScroll = document.getElementById('contentHolder').scrollTop;
+		if(currentScroll <= correctScrollTop){
+		clearInterval(autoScrollIntervalHolder);
+		autoScrollIntervalHolder = setInterval(autoScrollIntervalUp,10);
+		} else {
+		clearInterval(autoScrollIntervalHolder);
+		autoScrollIntervalHolder = setInterval(autoScrollIntervalDown,10);
+		}
+	}
+	
+	function autoScrollIntervalUp(){
+		document.getElementById('contentHolder').scrollTop = currentScroll;
+		currentScroll = currentScroll + 8;
+		if(currentScroll >= correctScrollTop - 10){
+		document.getElementById('contentHolder').scrollTop = correctScrollTop - 9;
+		clearInterval(autoScrollIntervalHolder);
+		}
+	}
+	
+	function autoScrollIntervalDown(){
+		document.getElementById('contentHolder').scrollTop = currentScroll;
+		currentScroll = currentScroll - 8;
+		if(currentScroll <= correctScrollTop - 10){
+		document.getElementById('contentHolder').scrollTop = correctScrollTop - 9;
+		clearInterval(autoScrollIntervalHolder);
+		}
+	}
+	
+	</script>
+	<style>
+		@font-face {
+		font-family: 'segoe';
+		src: url('SegoeUI/segoeui.ttf');
+		}
+		@font-face {
+		font-family: 'segoeSemiBold';
+		src: url('SegoeUI/seguisb.ttf');
+		}
+		@font-face {
+		font-family: 'segoeBlack';
+		src: url('SegoeUI/seguibl.ttf');
+		}
+		body {
+		font-family:'segoe', sans-serif;
+		/*font-family:'Roboto', sans-serif;*/
+		font-size:12px;
+		font-weight:500;
+		line-height:normal;
+		margin:0px;
+		padding:0px;
+		padding-top:25px;
+		padding-bottom:25px;
+		background-color:powderBlue;
+		}
+		.header, .footer {
+		text-align:center;
+		color:#ffffff;
+		background-color:#999999;
+		height:15px;
+		padding-top:5px;
+		padding-bottom:5px;
+		width:100%;
+		position:absolute;
+		}
+		.header{
+		top:0px;
+		cursor:pointer;
+		}
+		.footer{
+		bottom:0px;
+		cursor:pointer;
+		}
+		.button{
+		width:100px;
+		height:40px;
+		border-radius:3px;
+		background-color:#999999;
+		line-height:40px;
+		text-align:center;
+		color:white;
+		margin:auto;
+		cursor:pointer;
+		}
+		.noSelect{
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+		}
+		.noDrag{
+		-webkit-user-drag: none;
+		-khtml-user-drag: none;
+		-moz-user-drag: none;
+		-o-user-drag: none;
+		user-drag: none;
+		}
+		.button:hover{
+		background-color:#7f7f7f;
+		}
+		.contentHolderHolder{
+		width:620px;
+		height:300px;
+		overflow:hidden;
+		border-radius:5px;
+		margin:auto;
+		margin-top:50px;
+		}
+		.contentHolder{
+		width:650px;
+		height:300px;
+		border-radius:3px;
+		background-color:#ffffff;
+		overflow-y:scroll;
+		}
+		.content{
+		margin-left:10px;
+		width:600px;
+		height:100px;
+		background-color:white;
+		}
+		.slug10{
+		width:10px;
+		height:10px;
+		}
+		.slug100{
+		width:100px;
+		height:100px;
+		}
+		.buttonHolder{
+		width:320px;
+		height:40px;
+		margin:auto;
+		margin-top:50px;
+		}
+		.buttonImage{
+		width:40px;
+		height:40px;
+		margin:auto;
+		pointer-events:none;
+		}
+	</style>
+</head>
+<body onload="setUp();" onresize="goodResize();">
+	<div class="header">
+		A code sketch by mike 08.14.17
+	</div>
+	
+	<div id="contentHolderHolder" class="contentHolderHolder">
+		<div id="contentHolder" class="contentHolder" onscroll="scrollTracker()">
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div id="mikesFavorite" class="content"><img style="width:40px;height:40px;margin:10px;" src="images/star.png"/></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+			<div class="content"></div>
+			<div class="slug10"></div>
+		</div>
+	</div>
+
+	<div class="buttonHolder">
+		<div class="button noSelect" style="float:left;" onmousedown="buttonDown('scrollUp')" onmouseout="buttonOut()" onmouseup="buttonUp()"><img class="buttonImage" src="images/up.png"/></div>
+		<div class="slug10" style="float:left;"></div>
+		<div class="button noSelect" style="float:left;" onmousedown="buttonDown('scrollDown')" onmouseout="buttonOut()" onmouseup="buttonUp()"><img class="buttonImage" src="images/down.png"/></div>
+		<div class="slug10" style="float:left;"></div>
+		<div class="button noSelect" style="float:left;" onclick="mikesFavorite()"><img class="buttonImage" src="images/star.png"/></div>
+	</div>
+	
+	<div class="footer">
+		A code sketch by mike 08.14.17
+	</div>
+</body>
+</html>
+
+<!--
+
+90% brightness:e5e5e5
+80% brightness:cccccc
+70% brightness:b2b2b2
+60% brightness:999999
+50% brightness:7f7f7f
+40% brightness:656565
+30% brightness:4c4c4c
+20% brightness:333333
+10% brightness:191919
+
+A div with position:absolute positions itself relative to the other elements on the page, but the other elements on the page ignore the div with position:absolute
+
+A div with position:fixed ignores all other elements on the page, and all other elements on the page ignore the div with position:fixed
+
+Margins collapse by default. Objects that are 'floating' do not collapse their margins.
+
+API - Application Program Interface
+
+An API is a collection of methods or routines used by numerous pieces of sofware for communication. Lingua Franca. Protocols for information exchange.
+
+Constructors create objects
+
+-->
