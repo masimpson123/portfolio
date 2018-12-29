@@ -199,9 +199,6 @@ echo <<<EOT
                 <div class="subNavItemTxt">3</div>
                 </div>
                 <div class="subNavItem" onclick="changeMedia40();addSelectedClass(this)" onmouseover="yellowBG(this)" onmouseout="toggleSetter(this)">
-                <div class="subNavItemIcon"><img alt="Open Task Flows" class="icon iconDark" src="icons/subNavIconDocumentDark.png"><img alt="Open Task Flows" class="icon iconLight" src="icons/subNavIconDocumentLight.png"></div>
-                </div>
-                <div class="subNavItem" onclick="changeMedia41();addSelectedClass(this)" onmouseover="yellowBG(this)" onmouseout="toggleSetter(this)">
                 <div class="subNavItemIcon"><img alt="Open Prototype" class="icon iconDark" src="icons/subNavIconInteractionDark.png"><img alt="Open Prototype" class="icon iconLight" src="icons/subNavIconInteractionLight.png"></div>
                 </div>
             </div>

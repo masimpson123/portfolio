@@ -786,7 +786,7 @@ hideVideos();
 document.getElementById("openBtn").style.display = "none";
 document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = boostImages[0].src;
-document.getElementById("leftArrow").setAttribute("onclick", "toggle_5('FifthProject');changeMedia41()");
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_4('FifthProject');changeMedia40()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_2('FifthProject');changeMedia38()");
 document.getElementById("boostText").innerHTML = 'Boost makes exercise easier and more effective. It is a smart phone app that pushes users to exercise thoroughly and helps them to record their exercise history. <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
