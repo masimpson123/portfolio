@@ -28,9 +28,8 @@ var passwordHolder = "";
 var xhttpOne = new XMLHttpRequest();
 xhttpOne.onreadystatechange = function() {
     if(xhttpOne.readyState == 4){
-        if(x.response != ""){
-            document.getElementById(y).innerHTML = x.response;
-            clearInterval(schemaReturnCheckVar);
+        if(xhttpOne.response != ""){
+            document.getElementById("bodyContentHolder").innerHTML = xhttpOne.response;
             enterSite();
         } else {
             alert("You do not have permission to enter this portfolio. Please contact Mike at 513 376 1622.");
