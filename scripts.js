@@ -50,7 +50,7 @@ function retrieveBody(){
     var formData = new FormData();
     formData.append("password", passwordHolder);
     //xhttpOne.open("POST", "http://127.0.0.1/bodyContent.php", true); //we initialize the request development
-    xhttpOne.open("POST", "bodyContent.php", true); //we initialize the request production
+    xhttpOne.open("POST", "./bodyContent.php", true); //we initialize the request production
     xhttpOne.send(formData);
     }
 }
@@ -358,6 +358,12 @@ var fadeIn = setInterval(function(){
 	}, 15);
 	}
 }, 15);
+}
+
+function inputEnterKey(x){
+    if(x.keyCode == 13){
+        retrieveBody();
+    }
 }
 
 function exitSite() {
