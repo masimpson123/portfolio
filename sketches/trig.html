@@ -2,104 +2,111 @@
 <head>
 <script>
 var trackMouse = true;
-var videoShow = false;
-var contentBoolean = true;
+var nextTicker = 0;
 function move(event){
-if(trackMouse === false){
-return;
-}
-findAdjacent();
-var x = event.clientX;
-var y = event.clientY;
-var a = window.innerHeight;
-var b = window.innerWidth;
-if (x > b - 15) {x = b - 15;};
-if (y > a - 15) {y = a - 15;};
-if (x < 15) {x = 15;};
-if (y < 15) {y = 15;};
-var l = (((b / 2) - 1) - x) * -1; //opposite
-var m = ((a / 2) - 1) - y; //adjacent
-var r = (Math.atan(l/m)) * (180/Math.PI);
-var da = (Math.atan(b/a)) * (180/Math.PI);
-var innerAdjacent = findAdjacent(da,r,a,b);
-var innerAngle = findAngle(da,r,l,m);
-var opposite = innerAdjacent * (Math.tan(innerAngle));
-var adjacent = Math.abs(innerAdjacent);
-var rsh = ((Math.sqrt( Math.pow(opposite,2) + Math.pow(adjacent,2)))*2)-30;
-document.getElementById("display_1").innerHTML= x;
-document.getElementById("display_2").innerHTML= y;
-document.getElementById("display_3").innerHTML= l;
-document.getElementById("display_4").innerHTML= m;
-document.getElementById("display_5").innerHTML= r;
-document.getElementById("display_6").innerHTML= a;
-document.getElementById("display_7").innerHTML= b;
-document.getElementById("display_8").innerHTML= da;
-document.getElementById("display_9").innerHTML= rsh;
-document.getElementById("display_10").innerHTML= opposite;
-document.getElementById("display_11").innerHTML= adjacent;
-document.getElementById("cuteCircle").style.top = y - 15 + "px";
-document.getElementById("cuteCircle").style.left = x - 15 + "px";
-document.getElementById("verticalStroke").style.height = a + "px";
-document.getElementById("verticalStroke").style.left = (b / 2) - 1 + "px";
-document.getElementById("horizontalStroke").style.width = b + "px";
-document.getElementById("horizontalStroke").style.top = (a / 2) - 1 + "px";
-document.getElementById("rotateStroke").style.WebkitTransform = "rotate(" + r + 90 + "deg)";
-document.getElementById("rotateStroke").style.top = (rsh / 2) * -1 + "px";
-document.getElementById("rotateStroke").style.height = rsh + "px";
-document.getElementById("rotateStrokeHolder").style.top = (a/2) + "px";
-document.getElementById("rotateStrokeHolder").style.left = (b/2) + "px";
-document.getElementById("screenOne").style.height = a + "px";
-document.getElementById("screenOne").style.width = b + "px";
-document.getElementById("videoOne").style.left = (b - 640) / 2 + "px";
-document.getElementById("videoOne").style.top = (a - 360) / 2 + "px";
-document.getElementById("pictureOne").style.left = (b - 600) / 2 + "px";
-document.getElementById("pictureOne").style.top = (a - 400) / 2 + "px";
-document.getElementById("nextBtn").style.left = b - 60 + "px";
-document.getElementById("nextBtn").style.top = a - 60 + "px";
+    if(trackMouse === false){
+    return;
+    }
+    findAdjacent();
+    var x = event.clientX;
+    var y = event.clientY;
+    var a = window.innerHeight;
+    var b = window.innerWidth;
+    if (x > b - 15) {x = b - 15;};
+    if (y > a - 15) {y = a - 15;};
+    if (x < 15) {x = 15;};
+    if (y < 15) {y = 15;};
+    //we must convert to a 'cartesian coordinate' system
+    //opposite leg always runs parallel to x axis
+    //half of window width minus current x would result in negative values when we're to the right of origin
+    var oppositeLeg = (((b / 2) - 1) - x) * -1;
+    //adjacent leg always runs parallel to y axis
+    var adjacentLeg = ((a / 2) - 1) - y;
+    //javascript trig functions return radians
+    //convert radians to degrees by multiplying by 180/pi
+    //inverse trigonometric functions input side ratios and output angles
+    var r = (Math.atan(oppositeLeg/adjacentLeg)) * (180/Math.PI);
+    var da = (Math.atan(b/a)) * (180/Math.PI);
+    var innerAdjacent = findAdjacent(da,r,a,b);
+    var innerAngle = findAngle(da,r,oppositeLeg,adjacentLeg);
+    var opposite = innerAdjacent * (Math.tan(innerAngle));
+    var adjacent = Math.abs(innerAdjacent);
+    var rsh = ((Math.sqrt( Math.pow(opposite,2) + Math.pow(adjacent,2)))*2)-30;
+    document.getElementById("display_1").innerHTML= x;
+    document.getElementById("display_2").innerHTML= y;
+    document.getElementById("display_3").innerHTML= oppositeLeg;
+    document.getElementById("display_4").innerHTML= adjacentLeg;
+    document.getElementById("display_5").innerHTML= r;
+    document.getElementById("display_6").innerHTML= a;
+    document.getElementById("display_7").innerHTML= b;
+    document.getElementById("display_8").innerHTML= da;
+    document.getElementById("display_9").innerHTML= rsh;
+    document.getElementById("display_10").innerHTML= opposite;
+    document.getElementById("display_11").innerHTML= adjacent;
+    document.getElementById("cuteCircle").style.top = y - 15 + "px";
+    document.getElementById("cuteCircle").style.left = x - 15 + "px";
+    document.getElementById("verticalStroke").style.height = a + "px";
+    document.getElementById("verticalStroke").style.left = (b / 2) - 1 + "px";
+    document.getElementById("horizontalStroke").style.width = b + "px";
+    document.getElementById("horizontalStroke").style.top = (a / 2) - 1 + "px";
+    document.getElementById("oppositeLegStroke").style.width = Math.abs(oppositeLeg) + "px";
+    document.getElementById("oppositeLegStroke").style.top = y + "px";
+    if(x > (b / 2)){
+    document.getElementById("oppositeLegStroke").style.left = (b / 2) - 1 + "px";
+    } else {
+    document.getElementById("oppositeLegStroke").style.left = x + "px";
+    }
+    document.getElementById("rotateStroke").style.WebkitTransform = "rotate(" + r + "deg)";
+    document.getElementById("rotateStroke").style.top = (rsh / 2) * -1 + "px";
+    document.getElementById("rotateStroke").style.height = rsh + "px";
+    document.getElementById("rotateStrokeHolder").style.top = (a/2) + "px";
+    document.getElementById("rotateStrokeHolder").style.left = (b/2) + "px";
+    document.getElementById("screenOne").style.height = a + "px";
+    document.getElementById("screenOne").style.width = b + "px";
+    document.getElementById("videoOne").style.left = (b - 640) / 2 + "px";
+    document.getElementById("videoOne").style.top = (a - 360) / 2 + "px";
+    document.getElementById("pictureOne").style.left = (b - 600) / 2 + "px";
+    document.getElementById("pictureOne").style.top = (a - 400) / 2 + "px";
+    document.getElementById("nextBtn").style.left = b - 60 + "px";
+    document.getElementById("nextBtn").style.top = a - 60 + "px";
 }
 function findAdjacent(da, r, a, b){
-if (r < da && -da < r) {
-console.log(a/2);
-return (a/2);
-
-} else {
-return (b/2);
-}
+    if (r < da && -da < r) {
+    return (a/2);
+    } else {
+    return (b/2);
+    }
 }
 function findAngle(da, r, l, m){
-if (-da < r && r < da) {
-return (Math.atan(l/m));
-} else {
-return (Math.PI/2)-(Math.atan(l/m));
-}
+    if (-da < r && r < da) {
+    return (Math.atan(l/m));
+    } else {
+    return (Math.PI/2)-(Math.atan(l/m));
+    }
 }
 function trackMouseOnOff(){
-if (trackMouse === true) {
-trackMouse = false;
-} else {
-trackMouse = true;
+    if (trackMouse === true) {
+    trackMouse = false;
+    } else {
+    trackMouse = true;
+    }
 }
-}
-function showHideVideo(){
-console.log('showHideVideoRan');
-if (videoShow === true) {
-videoShow = false;
-document.getElementById("videoOneHolder").style.display = "none";
-} else {
-videoShow = true;
-document.getElementById("videoOneHolder").style.display = "block";
-}
-}
-function nextContent(){
-if (contentBoolean === true) {
-contentBoolean = false;
-document.getElementById("pictureOne").style.display = "block";
-document.getElementById("videoOne").style.display = "none";
-} else {
-contentBoolean = true;
-document.getElementById("pictureOne").style.display = "none";
-document.getElementById("videoOne").style.display = "block";
-}
+function next(){
+    nextTicker = nextTicker + 1;
+    if(nextTicker == 1){
+    document.getElementById("videoOneHolder").style.display = "block";
+    document.getElementById("pictureOne").style.display = "none";
+    document.getElementById("videoOne").style.display = "block";
+    }
+    if(nextTicker == 2){
+    document.getElementById("videoOneHolder").style.display = "block";
+    document.getElementById("pictureOne").style.display = "block";
+    document.getElementById("videoOne").style.display = "none";
+    }
+    if(nextTicker == 3){
+    document.getElementById("videoOneHolder").style.display = "none";
+    nextTicker = 0;
+    }
 }
 </script>
 <style>
@@ -240,20 +247,18 @@ z-index:3;
 		<div class="title">Adjacent:</div>
 		<div id="display_11" class="value"></div>
 	</div>
-	<div class="row">
-		<div class="title button" onclick="showHideVideo()">X-Porte UI</div>
-	</div>
 	<div id="cuteCircle" class="cuteCircle" onclick="trackMouseOnOff()"></div>
 	<div id="verticalStroke" class="verticalStroke"></div>
 	<div id="horizontalStroke" class="horizontalStroke"></div>
+    <div id="oppositeLegStroke" class="horizontalStroke"></div>
 	<div id="rotateStrokeHolder" class="rotateStrokeHolder">
 		<div id="rotateStroke" class="rotateStroke"></div>
 	</div>
 	<div id="videoOneHolder">
-		<div id="screenOne" onclick="showHideVideo()"></div>
+		<div id="screenOne"></div>
 		<div id="pictureOne"><img src="images/gatePlacement.jpg"/></div>
-		<div id="nextBtn" onclick="nextContent()"></div>
 		<iframe id="videoOne" src="https://player.vimeo.com/video/248250353" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 	</div>
+    <div id="nextBtn" onclick="next()"></div>
 </body>
 </html>
