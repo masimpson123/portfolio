@@ -6,9 +6,8 @@
 //    echo "PDO is enabled.";
 //}
 
-$servername = "michaelsimpsondesign.ipagemysql.com";
-$username = "michael123";
-$password = "theearth123";
+require 'credentials.php';
+
 try {
 $conn = new PDO('mysql:host=' . $servername . ';', $username, $password);   
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -6,9 +6,8 @@
 //}
 //echo($properReturn);
 
-$servername = "michaelsimpsondesign.ipagemysql.com";
-$username = "michael123";
-$password = "theearth123";
+require 'credentials.php';
+
 $database = $_POST["databaseSelect"];
 $table = $_POST["tableSelect"];
 

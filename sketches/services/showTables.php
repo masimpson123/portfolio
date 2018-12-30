@@ -6,9 +6,8 @@
 //    echo "PDO is enabled.";
 //}
 
-$servername = "michaelsimpsondesign.ipagemysql.com";
-$username = "michael123";
-$password = "theearth123";
+require 'credentials.php';
+
 $database = $_POST["databaseSelect"];
 try {
 $conn = new PDO('mysql:host=' . $servername . ';', $username, $password);   

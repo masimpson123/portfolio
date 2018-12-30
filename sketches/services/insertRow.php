@@ -7,9 +7,8 @@
 
 //echo($properPHPConnect);
 
-$servername = "michaelsimpsondesign.ipagemysql.com";
-$username = "michael123";
-$password = "theearth123";
+require 'credentials.php';
+
 $database = $_POST["currentDatabase"];
 $table = $_POST["currentTable"];
 
