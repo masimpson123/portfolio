@@ -3,6 +3,7 @@ var glideImages = new Array();
 var autoSchedulerImages = new Array();
 var boostImages = new Array();
 var bonusImages = new Array();
+var sonositeImages = new Array();
 var currentProject;
 var winHeight = window.innerHeight;
 var winWidth = window.innerWidth;
@@ -23,6 +24,7 @@ var subNavItemHolders = [];
 var descriptionHolders = [];
 var descriptions = [];
 var passwordHolder = "";
+var passwordHolderOpenTicker = 0;
 
 //DYNAMIC SITE CONSTRUCTION
 var xhttpOne = new XMLHttpRequest();
@@ -39,7 +41,11 @@ xhttpOne.onreadystatechange = function() {
 function retrieveBody(){
     passwordHolder = document.getElementById('passwordIntake').value;
     if(passwordHolder == ""){
+        if(passwordHolderOpenTicker > 0){
+           alert("Please enter the correct password.");
+        }
         document.getElementById("passwordIntake").style.display="block";
+        passwordHolderOpenTicker += 1;
     } else {
     var formData = new FormData();
     formData.append("password", passwordHolder);
@@ -609,6 +615,89 @@ document.getElementById("openBtn").style.display = "none";
 document.getElementById("picture").style.display = "none";
 document.getElementById("loadingMsg").style.display = "block";
 document.getElementById("loadingMsgCard").style.display = "block";
+sonositeImages[0] = new Image();
+sonositeImages[0].src = "portfolioSliderImages/sonosite1.jpg";
+sonositeImages[1] = new Image();
+sonositeImages[1].src = "portfolioSliderImages/sonosite2.jpg";
+sonositeImages[2] = new Image();
+sonositeImages[2].src = "portfolioSliderImages/sonosite3.jpg";
+sonositeImages[3] = new Image();
+sonositeImages[3].src = "portfolioSliderImages/sonosite4.jpg";
+sonositeImages[4] = new Image();
+sonositeImages[4].src = "portfolioSliderImages/sonosite5.jpg";
+document.getElementById("leftArrow").style.pointerEvents = "none";
+document.getElementById("rightArrow").style.pointerEvents = "none";
+document.getElementById("sonositeText").innerHTML = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("nav").style.pointerEvents = "none";
+for (i=0; i<subNavHolders.length; i++) {
+subNavHolders[i].style.pointerEvents = "none";
+}
+setTimeout(changeMedia1, 2000); //first piece of content in its project
+setTimeout(changeMediaGeneralHelper, 3000); //hide loading msg and enable interface
+}
+function changeMedia1() {
+hideVideos();
+document.getElementById("openBtn").style.display = "none";
+document.getElementById("picture").style.display = "block";
+document.getElementById("picture").src = sonositeImages[0].src;
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_5('FirstProject');changeMedia5()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_2('FirstProject');changeMedia2()");
+document.getElementById("sonositeText").innerHTML = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+}
+function changeMedia2() {
+hideVideos();
+document.getElementById("openBtn").style.display = "none";
+document.getElementById("picture").style.display = "block";
+document.getElementById("picture").src = sonositeImages[1].src;
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_1('FirstProject');changeMedia1()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_3('FirstProject');changeMedia3()");
+document.getElementById("sonositeText").innerHTML = 'Laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+}
+function changeMedia3() {
+hideVideos();
+document.getElementById("openBtn").style.display = "none";
+document.getElementById("picture").style.display = "block";
+document.getElementById("picture").src = sonositeImages[2].src;
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_2('FirstProject');changeMedia2()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_4('FirstProject');changeMedia4()");
+document.getElementById("sonositeText").innerHTML = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+}
+function changeMedia4() {
+hideVideos();
+document.getElementById("openBtn").style.display = "none";
+document.getElementById("picture").style.display = "block";
+document.getElementById("picture").src = sonositeImages[3].src;
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_3('FirstProject');changeMedia3()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_5('FirstProject');changeMedia5()");
+document.getElementById("sonositeText").innerHTML = 'Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+}
+function changeMedia5() {
+hideVideos();
+document.getElementById("openBtnLink").setAttribute("href","sketches/trig.html");
+document.getElementById("openBtn").style.display = "block";
+document.getElementById("picture").style.display = "block";
+document.getElementById("picture").src = sonositeImages[4].src;
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_4('FirstProject');changeMedia4()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_1('FirstProject');changeMedia1()");
+document.getElementById("sonositeText").innerHTML = 'Sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et . <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+}
+function changeMedia6() {
+}
+function changeMedia7() {
+}
+function changeMedia8() {
+}
+function changeMedia9() {
+}
+
+// PROJECT 2 MEDIA
+// changeMedia functions 10-18 are reserved for project 2
+
+function changeMedia10_Helper() {
+document.getElementById("openBtn").style.display = "none";
+document.getElementById("picture").style.display = "none";
+document.getElementById("loadingMsg").style.display = "block";
+document.getElementById("loadingMsgCard").style.display = "block";
 glideImages[0] = new Image();
 glideImages[0].src = "portfolioSliderImages/glide1.jpg";
 glideImages[1] = new Image();
@@ -626,77 +715,53 @@ document.getElementById("nav").style.pointerEvents = "none";
 for (i=0; i<subNavHolders.length; i++) {
 subNavHolders[i].style.pointerEvents = "none";
 }
-setTimeout(changeMedia1, 2000); //first piece of content in its project
+setTimeout(changeMedia10, 2000); //first piece of content in its project
 setTimeout(changeMediaGeneralHelper, 3000); //hide loading msg and enable interface
 }
-function changeMedia1() {
+function changeMedia10() {
 hideVideos();
 document.getElementById("openBtn").style.display = "none";
 document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = glideImages[0].src;
-document.getElementById("leftArrow").setAttribute("onclick", "toggle_5('FirstProject');changeMedia5()");
-document.getElementById("rightArrow").setAttribute("onclick", "toggle_2('FirstProject');changeMedia2()");
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_5('SecondProject');changeMedia14()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_2('SecondProject');changeMedia11()");
 document.getElementById("glideText").innerHTML = 'Glide is an augmented reality interface that makes motorcycle travel safer, easier and more delightful. Effective visual communication allows Glide to unobtrusively share critical information. <a href="documents/glideProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
-function changeMedia2() {
+function changeMedia11() {
 hideVideos();
 document.getElementById("openBtn").style.display = "none";
 document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = glideImages[1].src;
-document.getElementById("leftArrow").setAttribute("onclick", "toggle_1('FirstProject');changeMedia1()");
-document.getElementById("rightArrow").setAttribute("onclick", "toggle_3('FirstProject');changeMedia3()");
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_1('SecondProject');changeMedia10()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_3('SecondProject');changeMedia12()");
 document.getElementById("glideText").innerHTML = 'Glide helps to prevent common motorcycle accidents. Riders interact with Glide through voice commands, pupil detection, and interactions with the motorcycle (e.g. leaning / braking). <a href="documents/glideProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
-function changeMedia3() {
+function changeMedia12() {
 hideVideos();
 document.getElementById("openBtn").style.display = "none";
 document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = glideImages[2].src;
-document.getElementById("leftArrow").setAttribute("onclick", "toggle_2('FirstProject');changeMedia2()");
-document.getElementById("rightArrow").setAttribute("onclick", "toggle_4('FirstProject');changeMedia4()");
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_2('SecondProject');changeMedia11()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_4('SecondProject');changeMedia13()");
 document.getElementById("glideText").innerHTML = 'Glide shows the rider the information they need when they need it. For the majority of the rider’s experience, Glide is completely invisible. It does not intrude on the rider’s experience. <a href="documents/glideProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
-function changeMedia4() {
+function changeMedia13() {
 hideVideos();
 document.getElementById("openBtn").style.display = "none";
 document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = glideImages[3].src;
-document.getElementById("leftArrow").setAttribute("onclick", "toggle_3('FirstProject');changeMedia3()");
-document.getElementById("rightArrow").setAttribute("onclick", "toggle_5('FirstProject');changeMedia5()");
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_3('SecondProject');changeMedia12()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_5('SecondProject');changeMedia14()");
 document.getElementById("glideText").innerHTML = 'Glide’s daytime UI kit presents dark bold graphics on light backgrounds. The dark graphics jump out to the rider because they heavily contrast the rider’s bright, daytime environment.  <a href="documents/glideProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
-function changeMedia5() {
+function changeMedia14() {
 hideVideos();
 document.getElementById("openBtn").style.display = "none";
 document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = glideImages[4].src;
-document.getElementById("leftArrow").setAttribute("onclick", "toggle_4('FirstProject');changeMedia4()");
-document.getElementById("rightArrow").setAttribute("onclick", "toggle_1('FirstProject');changeMedia1()");
+document.getElementById("leftArrow").setAttribute("onclick", "toggle_4('SecondProject');changeMedia13()");
+document.getElementById("rightArrow").setAttribute("onclick", "toggle_1('SecondProject');changeMedia10()");
 document.getElementById("glideText").innerHTML = 'Glide’s nighttime UI kit presents white graphics on dark backgrounds. The white graphics jump out to the rider because they contrast the rider’s dim, nighttime environment. <a href="documents/glideProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
-}
-function changeMedia6() {
-}
-function changeMedia7() {
-}
-function changeMedia8() {
-}
-function changeMedia9() {
-}
-
-// PROJECT 2 MEDIA
-// changeMedia functions 10-18 are reserved for project 2
-
-function changeMedia10_Helper() {
-}
-function changeMedia10() {
-}
-function changeMedia11() {
-}
-function changeMedia12() {
-}
-function changeMedia13() {
-}
-function changeMedia14() {
 }
 function changeMedia15() {
 }
