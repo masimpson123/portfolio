@@ -45,6 +45,7 @@ function retrieveBody(){
            alert("Please enter the correct password.");
         }
         document.getElementById("passwordIntake").style.display="block";
+        document.getElementById("passwordIntake").focus();
         passwordHolderOpenTicker += 1;
     } else {
     var formData = new FormData();
