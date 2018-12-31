@@ -634,7 +634,7 @@ sonositeImages[4] = new Image();
 sonositeImages[4].src = "portfolioSliderImages/sonosite5.jpg";
 document.getElementById("leftArrow").style.pointerEvents = "none";
 document.getElementById("rightArrow").style.pointerEvents = "none";
-document.getElementById("sonositeText").innerHTML = 'This is X-Porte. Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("sonositeText").innerHTML = 'At Sonosite, I contributed to the User Experience Design of the successor of X-Porte (pictured). We designed an ultrasound machine that is fast, intuitive and even delightful. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 document.getElementById("nav").style.pointerEvents = "none";
 for (i=0; i<subNavHolders.length; i++) {
 subNavHolders[i].style.pointerEvents = "none";
@@ -649,7 +649,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = sonositeImages[0].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_5('FirstProject');changeMedia5()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_2('FirstProject');changeMedia2()");
-document.getElementById("sonositeText").innerHTML = 'This is X-Porte. Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("sonositeText").innerHTML = 'At Sonosite, I contributed to the User Experience Design of the successor of X-Porte (pictured). We designed an ultrasound machine that is fast, intuitive and even delightful. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia2() {
 hideVideos();
@@ -658,7 +658,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = sonositeImages[1].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_1('FirstProject');changeMedia1()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_3('FirstProject');changeMedia3()");
-document.getElementById("sonositeText").innerHTML = 'Laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("sonositeText").innerHTML = 'Our team put an emphasis on visualizing all of our proposed solutions. This made communication between team members easier and forced us to think through practical UI details. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia3() {
 hideVideos();
@@ -667,7 +667,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = sonositeImages[2].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_2('FirstProject');changeMedia2()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_4('FirstProject');changeMedia4()");
-document.getElementById("sonositeText").innerHTML = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("sonositeText").innerHTML = 'At the core of our design is a customizable dashboard. Different clinicians need (or merely favor) different ultrasound controls. A ‘dummy’ sonogram visually maps to the real one. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia4() {
 hideVideos();
@@ -676,7 +676,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = sonositeImages[3].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_3('FirstProject');changeMedia3()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_5('FirstProject');changeMedia5()");
-document.getElementById("sonositeText").innerHTML = 'Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("sonositeText").innerHTML = 'We promoted anatomical selection over the industry standard list model. Representative users preferred finding relevant anatomy using hot spots on illustrations over alphabetized lists. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia5() {
 hideVideos();
@@ -686,7 +686,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = sonositeImages[4].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_4('FirstProject');changeMedia4()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_1('FirstProject');changeMedia1()");
-document.getElementById("sonositeText").innerHTML = 'Sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et . <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("sonositeText").innerHTML = 'I was amazed by the UI design and development of X-Porte’s ‘doppler’ feature. I created a mini prototype of the feature using JavaScript and trigonometry just to satisfy my own curiosity. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia6() {
 }
