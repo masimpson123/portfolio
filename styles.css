@@ -417,11 +417,12 @@ background-color:white;
 pointer-events: none;
 }
 .inputPW{
-    width:160px !important;
-    height:30px !important;
-    box-sizing:border-box !important;
-    position:absolute !important;
-    margin-top:-40px !important;
-    margin-left:60px !important;
-    display:none;
+width:160px !important;
+height:30px !important;
+box-sizing:border-box !important;
+position:absolute !important;
+margin-top:-50px !important;
+margin-left:60px !important;
+display:none;
+padding:15px
 }
