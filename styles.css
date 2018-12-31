@@ -424,5 +424,7 @@ position:absolute !important;
 margin-top:-50px !important;
 margin-left:60px !important;
 display:none;
-padding:15px
+padding-top:15px;
+padding-bottom:16px;
+padding-left:10px;
 }
