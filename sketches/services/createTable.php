@@ -5,9 +5,7 @@
 //if ( extension_loaded('pdo') == 1 ) {
 //    echo "PDO is enabled.";
 //}
-$servername = "michaelsimpsondesign.ipagemysql.com";
-$username = "michael123";
-$password = "theearth123";
+require 'credentials.php';
 $database = $_POST["databaseName"];
 $table = $_POST["newTableName"];
 if(trim($database) != "" && trim($table) != ""){
