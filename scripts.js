@@ -634,7 +634,7 @@ sonositeImages[4] = new Image();
 sonositeImages[4].src = "portfolioSliderImages/sonosite5.jpg";
 document.getElementById("leftArrow").style.pointerEvents = "none";
 document.getElementById("rightArrow").style.pointerEvents = "none";
-document.getElementById("sonositeText").innerHTML = 'At Sonosite, I contributed to the User Experience Design of the successor of X-Porte (pictured). We designed an ultrasound machine that is fast, intuitive and even delightful. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("sonositeText").innerHTML = 'At Sonosite, I contributed to the UX Design of X-Porte (pictured) and its leaner successor. We designed an ultrasound machine that is fast, intuitive and even delightful. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 document.getElementById("nav").style.pointerEvents = "none";
 for (i=0; i<subNavHolders.length; i++) {
 subNavHolders[i].style.pointerEvents = "none";
@@ -649,7 +649,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = sonositeImages[0].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_5('FirstProject');changeMedia5()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_2('FirstProject');changeMedia2()");
-document.getElementById("sonositeText").innerHTML = 'At Sonosite, I contributed to the User Experience Design of the successor of X-Porte (pictured). We designed an ultrasound machine that is fast, intuitive and even delightful. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("sonositeText").innerHTML = 'At Sonosite, I contributed to the UX Design of X-Porte (pictured) and its leaner successor. We designed an ultrasound machine that is fast, intuitive and even delightful. <a href="documents/sonositeProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia2() {
 hideVideos();
