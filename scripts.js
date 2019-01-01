@@ -845,7 +845,7 @@ boostImages[3] = new Image();
 boostImages[3].src = "portfolioSliderImages/boost4.jpg";
 document.getElementById("leftArrow").style.pointerEvents = "none";
 document.getElementById("rightArrow").style.pointerEvents = "none";
-document.getElementById("boostText").innerHTML = 'Boost makes exercise easier and more effective. It is a smart phone app that pushes users to exercise thoroughly and helps them to record their exercise history. <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("boostText").innerHTML = 'Boost! enhances the workout experience. It is a smart phone app that pushes users to exercise thoroughly while recording key exercise metrics (e.g. duration, weight, sets, reps). <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 document.getElementById("nav").style.pointerEvents = "none";
 for (i=0; i<subNavHolders.length; i++) {
 subNavHolders[i].style.pointerEvents = "none";
@@ -860,7 +860,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = boostImages[0].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_4('FifthProject');changeMedia40()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_2('FifthProject');changeMedia38()");
-document.getElementById("boostText").innerHTML = 'Boost makes exercise easier and more effective. It is a smart phone app that pushes users to exercise thoroughly and helps them to record their exercise history. <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("boostText").innerHTML = 'Boost! enhances the workout experience. It is a smart phone app that pushes users to exercise thoroughly while recording key exercise metrics (e.g. duration, weight, sets, reps). <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia38() {
 hideVideos();
@@ -869,7 +869,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = boostImages[1].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_1('FifthProject');changeMedia37()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_3('FifthProject');changeMedia39()");
-document.getElementById("boostText").innerHTML = 'Users input the kind of workout that they desire (shoulder, leg, cardio, or core), and the intensity that they desire relative to their last workout (lighter, heavier, or the same). <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("boostText").innerHTML = 'To begin a new Boost! workout, the user defines a workout type (shoulder, leg, cardio, or core) and a workout intensity relative to his last workout (lighter, heaver or the same). <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia39() {
 hideVideos();
@@ -878,7 +878,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = boostImages[2].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_2('FifthProject');changeMedia38()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_4('FifthProject');changeMedia40()");
-document.getElementById("boostText").innerHTML = 'Boost can more effectively create workouts if it knows what kind of equipment the user has available to them. The user can assign equipment to different workout locations. <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("boostText").innerHTML = 'Boost! can more effectively create workouts if it knows what equipment the user has available to him. Boost! makes assigning equipment to common workout locations effortless. <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia40() {
 hideVideos();
@@ -888,7 +888,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = boostImages[3].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_3('FifthProject');changeMedia39()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_1('FifthProject');changeMedia37()");
-document.getElementById("boostText").innerHTML = 'This web prototype showcases core interaction patterns of Boost. The prototype was created using HTML, CSS, Javascript, Photoshop CS5, and Illustrator CS5. <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
+document.getElementById("boostText").innerHTML = 'This web prototype showcases the core interaction patterns and task flows of Boost!. The prototype was created using HTML, CSS, Javascript, Photoshop CS5, and Illustrator CS5. <a href="documents/boostProcess.pdf" target="blank"><span class="copy_3">Process Book.</span></a>';
 }
 function changeMedia41() {
 }
@@ -953,7 +953,7 @@ document.getElementById("picture").style.display = "block";
 document.getElementById("picture").src = bonusImages[1].src;
 document.getElementById("leftArrow").setAttribute("onclick", "toggle_2('SixthProject');changeMedia47()");
 document.getElementById("rightArrow").setAttribute("onclick", "toggle_1('SixthProject');changeMedia46()");
-document.getElementById("bonusText").innerHTML = 'The drawings in this sketchbook were created using Prismacolor colored pencils and Staedtler pigment liners. The majority of the pages were created within 45 - 90 minutes.';
+document.getElementById("bonusText").innerHTML = 'The drawings in this sketchbook were created using Prismacolor colored pencils and Staedtler pigment liners. The pages were created in 45 - 90 minutes.';
 }
 function changeMedia49() {
 }
