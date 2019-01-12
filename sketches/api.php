@@ -229,7 +229,7 @@
 	console.log('xhttpOne change detected');
 	console.log('ready state: ' + xhttpOne.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
 	console.log('status ' + xhttpOne.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND 
-        if(xhttpTwo.readyState == 4){
+        if(xhttpOne.readyState == 4){
         returnFilePaths();
         }
 	}

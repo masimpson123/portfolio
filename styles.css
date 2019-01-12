@@ -330,14 +330,14 @@ z-index:10;
 margin-left:auto;
 margin-right:auto;
 }
-#loadingMsg{
+#loadingSpinner{
 position:absolute;
 width:70px;
 margin-left:auto;
 margin-right:auto;
 z-index:101;
 }
-#loadingMsgCard{
+#loadingSpinnerBG{
 width:100%;
 background-color:#3769aa;
 position:absolute;

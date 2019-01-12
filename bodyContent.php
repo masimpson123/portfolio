@@ -51,9 +51,9 @@ echo <<<EOT
     <a id="openBtnLink" href="" target="blank"><div id="openBtn" onmouseover="yellowBG(this)" onmouseout="blueBG(this)"><img class="openBtnIcon" src="icons/iconOpen.png" alt="Open Button"></div></a>	
 
     <div id="magicBox">
-        <div id="loadingMsgCard"></div>
-        <div id="loadingMsg"><img class="loadingGraphic" src="icons/loading.gif" alt="Loading Hammer"/></div>
-        <img id="picture" src="portfolioSliderImages/sonosite1.jpg" alt="Important Image"/>
+        <div id="loadingSpinnerBG"></div>
+        <div id="loadingSpinner"><img class="loadingGraphic" src="icons/loading.gif" alt="Loading Hammer"/></div>
+        <img onload="enableUI()" id="picture" src="" alt="Important Image"/>
         <iframe id="bonusVideo" class="video" src="https://player.vimeo.com/video/170714674" allowfullscreen></iframe>
     </div>
 </div>
