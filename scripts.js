@@ -29,6 +29,10 @@ xhttpOne.onreadystatechange = function() {
     if(xhttpOne.readyState == 4){
         if(xhttpOne.response != ""){
             document.getElementById("bodyContentHolder").innerHTML = xhttpOne.response;
+            document.getElementById("passwordIntake").style.display="none";
+            passwordHolder = "";
+            passwordHolderOpenTicker = 0;
+            document.getElementById('passwordIntake').value='';
             enterSite();
         } else {
             alert("You do not have permission to enter this portfolio. Please contact Mike at 513 376 1622.");
