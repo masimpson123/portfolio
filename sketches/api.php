@@ -165,6 +165,13 @@
 	xhttpSeven.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttpSeven.send(parsedFormDataObject);
     }
+    function dropTable(){
+    gatherFormData('dropTableForm');
+    parseFormDataObject(); //parses global formData object that gatherFormData() created;
+	xhttpTwelve.open("POST", "services/dropTable.php"); //we initialize the request
+	xhttpTwelve.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttpTwelve.send(parsedFormDataObject);
+    }
     function returnSchema(){
 	xhttpEight.open("POST", "services/showDatabases.php"); //we initialize the request
 	xhttpEight.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -332,7 +339,7 @@
         //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
         console.log('xhttpTwelve STATUS: ' + xhttpTwelve.status);
         if(xhttpTwelve.readyState == 4){
-        console.log(xhttpTwelve.response);
+        document.getElementById('droppedTableResponseHolder').innerHTML = xhttpTwelve.response;
         }
 	}
 	
@@ -569,6 +576,26 @@
     <button onclick="addColumnToNewTable()">Add Field</button>
     <div class="button noSelect" onclick="createTable()">Create Table</div>   
     <div id="newTableResponseHolder"></div>
+
+    <br>
+    <br>
+    <hr> <!--Drop a table-->
+    <br>
+    <br>
+    <h2>DROP AN EXISTING TABLE</h2>
+    <br>
+    <br>
+    
+    <form id="dropTableForm">
+        Which database?
+		<input type="text" name="databaseName">
+		<br>
+        Which table?
+		<input type="text" name="droppedTableName">
+		<br>
+    </form>
+    <div class="button noSelect" onclick="dropTable()">Drop Table</div>   
+    <div id="droppedTableResponseHolder"></div>
     
     <br>
     <br>

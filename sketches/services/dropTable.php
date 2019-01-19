@@ -15,7 +15,7 @@ if(trim($database) != "" && trim($table) != ""){
     $sql = "DROP TABLE " . $table;
     // use exec() because no results are returned
     $conn->exec($sql);
-    echo($sql);
+    echo($table . " was dropped succesfully using this SQL command: " . $sql);
     }
     catch(PDOException $e)
     {

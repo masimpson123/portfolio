@@ -25,7 +25,11 @@ foreach($resultOne as $oneRow){
         $databaseInformation = $databaseInformation . $oneCell . ' ';
     }
 } 
+if(strlen($databaseInformation)>0){
 echo($databaseInformation);
+} else {
+echo($database . " has no tables."); 
+}
 }
 catch(PDOException $e)
 {
