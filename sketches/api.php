@@ -20,6 +20,7 @@
     var xhttpNine = new XMLHttpRequest(); //used to insert a row in a table
     var xhttpTen = new XMLHttpRequest(); //used to return all tables of one database
     var xhttpEleven = new XMLHttpRequest(); //used to create custom download progress
+    var xhttpTwelve = new XMLHttpRequest(); //used to delete a MySQL table
 	
 	var arrayOfAllImages = []; //object we pass to PHP using $_POST superglobal
 	var filePathsArray = [];
@@ -226,92 +227,112 @@
 	
     //HTTP Request State Monitoring Functions
 	xhttpOne.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpOne change detected');
-	console.log('ready state: ' + xhttpOne.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpOne.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND 
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpOne READY STATE: ' + xhttpOne.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpOne STATUS: ' + xhttpOne.status);
         if(xhttpOne.readyState == 4){
         returnFilePaths();
         }
 	}
 	xhttpTwo.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpTwo change detected');
-	console.log('ready state: ' + xhttpTwo.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpTwo.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND 
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpTwo READY STATE: ' + xhttpTwo.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpTwo STATUS: ' + xhttpTwo.status);
         if(xhttpTwo.readyState == 4){
-           parseFilePaths();
+        parseFilePaths();
         }
 	}
 	xhttpThree.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpThree change detected');
-	console.log('ready state: ' + xhttpThree.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpThree.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND 
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpThree READY STATE: ' + xhttpThree.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpThree STATUS: ' + xhttpThree.status);
         if(xhttpThree.readyState == 4){
             document.getElementById('getWeatherResponseHolder').innerHTML = (JSON.parse(xhttpThree.response).name).toUpperCase() + " WEATHER: <br><br>" + xhttpThree.response + "<br><br>";
             console.log((JSON.parse(xhttpThree.response).name).toUpperCase());
         }
 	}	
 	xhttpFour.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpFour change detected');
-	console.log('ready state: ' + xhttpFour.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpFour.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpFour READY STATE: ' + xhttpFour.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpFour STATUS: ' + xhttpFour.status);
         if(xhttpFour.readyState == 4){
-           document.getElementById('formStudyResponseHolder').innerHTML = xhttpFour.response;
+        document.getElementById('formStudyResponseHolder').innerHTML = xhttpFour.response;
         }
 	}   
 	xhttpFive.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpFive change detected');
-	console.log('ready state: ' + xhttpFive.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpFive.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpFive READY STATE: ' + xhttpFive.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpFive STATUS: ' + xhttpFive.status);
         if(xhttpFive.readyState == 4){
-           document.getElementById('tableDataAndInsertForm').innerHTML = xhttpFive.response;
+        document.getElementById('tableDataAndInsertForm').innerHTML = xhttpFive.response;
         }
 	}
 	xhttpSix.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpSix change detected');
-	console.log('ready state: ' + xhttpSix.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpSix.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpSix READY STATE: ' + xhttpSix.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpSix STATUS: ' + xhttpSix.status);
         if(xhttpSix.readyState == 4){
-           document.getElementById('sendEmailResponseHolder').innerHTML = xhttpSix.response;
+        document.getElementById('sendEmailResponseHolder').innerHTML = xhttpSix.response;
         }
 	}
 	xhttpSeven.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpSeven change detected');
-	console.log('ready state: ' + xhttpSeven.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpSeven.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND 
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpSeven READY STATE: ' + xhttpSeven.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpSeven STATUS: ' + xhttpSeven.status);
         if(xhttpSeven.readyState == 4){
-           document.getElementById('newTableResponseHolder').innerHTML = xhttpSeven.response;
+        document.getElementById('newTableResponseHolder').innerHTML = xhttpSeven.response;
         }
 	}
 	xhttpEight.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpEight change detected');
-	console.log('ready state: ' + xhttpEight.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpEight.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpEight READY STATE: ' + xhttpEight.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpEight STATUS: ' + xhttpEight.status);
         if(xhttpEight.readyState == 4){
-           document.getElementById('schemaList').innerHTML = xhttpEight.response;
+        document.getElementById('schemaList').innerHTML = xhttpEight.response;
         }
 	}
 	xhttpNine.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpNine change detected');
-	console.log('ready state: ' + xhttpNine.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpNine.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpNine READY STATE: ' + xhttpNine.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpNine STATUS: ' + xhttpNine.status);
         if(xhttpNine.readyState == 4){
-           document.getElementById('insertRowDatabaseResponseHolder').innerHTML = xhttpNine.response;
+        document.getElementById('insertRowDatabaseResponseHolder').innerHTML = xhttpNine.response;
         }
 	}
 	xhttpTen.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpTen change detected');
-	console.log('ready state: ' + xhttpTen.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpTen.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpTen READY STATE: ' + xhttpTen.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpTen STATUS: ' + xhttpTen.status);
         if(xhttpTen.readyState == 4){
-           document.getElementById('tableList').innerHTML = xhttpTen.response;
+        document.getElementById('tableList').innerHTML = xhttpTen.response;
         }
 	}
 	xhttpEleven.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
-	console.log('xhttpEleven change detected');
-	console.log('ready state: ' + xhttpEleven.readyState); //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
-	console.log('status ' + xhttpEleven.status); //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpEleven READY STATE: ' + xhttpEleven.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpEleven STATUS: ' + xhttpEleven.status);
         if(xhttpEleven.readyState == 4){
-           console.log(xhttpEleven.response);
+        console.log(xhttpEleven.response);
+        }
+	}
+	xhttpTwelve.onreadystatechange = function() {
+        //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
+        console.log('xhttpTwelve READY STATE: ' + xhttpTwelve.readyState); 
+        //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
+        console.log('xhttpTwelve STATUS: ' + xhttpTwelve.status);
+        if(xhttpTwelve.readyState == 4){
+        console.log(xhttpTwelve.response);
         }
 	}
 	
