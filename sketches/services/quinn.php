@@ -58,7 +58,7 @@ if(isset($_GET["minTemp"]) &&
         $data = json_decode($contents, TRUE);
         foreach($data["list"] as $item) {
             if ($item["dt"] == $commuteIn || $item["dt"] == $commuteOut) {
-                //echo json_encode($item);
+                echo json_encode($item);
                 if($item["main"]["temp"] < $minTemp || $item["main"]["temp"] > $maxTemp){
                         $goodWeather = false; //temp isn't right
                 }
@@ -99,7 +99,7 @@ if(isset($_GET["minTemp"]) &&
     }
 } else { 
     echo "///";
-    echo "Bad Request.";
+    echo "Bad Request";
     echo "///";
     echo "2";
 }
