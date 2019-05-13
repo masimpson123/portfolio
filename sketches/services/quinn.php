@@ -22,6 +22,8 @@ if(isset($_GET["minTemp"]) &&
     if($parameterUpdate == 0 && date("H")!=1 && date("H")!=12){
         echo "///";
         echo "BAU";
+        echo "///";
+        echo "3"; //no face
     } else {
         if (date("H")==1 && $parameterUpdate == 0) {
             $analyzedDay = "today";
@@ -56,10 +58,9 @@ if(isset($_GET["minTemp"]) &&
         $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=48";
         $contents = file_get_contents($url);
         $data = json_decode($contents, TRUE);
-        //echo json_encode($data);
         foreach($data["list"] as $item) {
             if ($item["dt"] == $commuteIn || $item["dt"] == $commuteOut) {
-                echo json_encode($item);
+                //echo json_encode($item);
                 if($item["main"]["temp"] < $minTemp || $item["main"]["temp"] > $maxTemp){
                         $goodWeather = false; //temp isn't right
                 }
@@ -102,7 +103,7 @@ if(isset($_GET["minTemp"]) &&
     echo "///";
     echo "Bad Request";
     echo "///";
-    echo "2";
+    echo "2"; //broken face
 }
 
 ?>
