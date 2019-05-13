@@ -57,7 +57,7 @@ if(isset($_GET["minTemp"]) &&
         $contents = file_get_contents($url);
         $data = json_decode($contents, TRUE);
         echo "HELLO";
-        echo $data;
+        echo json_encode($data);
         foreach($data["list"] as $item) {
             if ($item["dt"] == $commuteIn || $item["dt"] == $commuteOut) {
                 echo json_encode($item);
