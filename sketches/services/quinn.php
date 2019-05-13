@@ -50,11 +50,11 @@ if(isset($_GET["minTemp"]) &&
         if ($item["dt"] == $commuteIn || $item["dt"] == $commuteOut) {
             //echo json_encode($item);
             if($item["main"]["temp"] < $minTemp || $item["main"]["temp"] > $maxTemp){
-                    $goodWeather == false;
+                    $goodWeather == false; //temp isn't right
             }
             if(strpos(strtolower($item["weather"][0]["main"]),"rain") !== false){
                 if ($rainTolerance == 0) {
-                    $goodWeather == false;
+                    $goodWeather == false; //no rain allowed
                 }
             }
         }
@@ -87,6 +87,7 @@ if(isset($_GET["minTemp"]) &&
     echo "We have analyzed " . $analyzedDay . ". ";
     }
 } else { 
+    echo "///";
     echo "Bad Request.";
 }
 
