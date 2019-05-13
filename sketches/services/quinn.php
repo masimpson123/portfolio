@@ -55,8 +55,8 @@ if(isset($_GET["minTemp"]) &&
         $commuteOut = strtotime($analyzedDay . $timeOut);
         $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=48";
         $contents = file_get_contents($url);
-        //$data = json_decode($contents, TRUE);
-        echo json_encode($data);
+        $data = json_decode($contents, TRUE);
+        //echo json_encode($data);
         foreach($data["list"] as $item) {
             if ($item["dt"] == $commuteIn || $item["dt"] == $commuteOut) {
                 echo json_encode($item);
