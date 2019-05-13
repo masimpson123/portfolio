@@ -63,9 +63,9 @@ if(isset($_GET["minTemp"]) &&
     echo date("D M d", $commuteIn);
     echo "///";
     if ($goodWeather == true) {
-        echo "1"; //good to commute
+        echo "0"; //happy face
     } else {
-        echo "0"; //not good to commute
+        echo "1"; //sad face
     }
     if ($maintenance == 1) {
     echo "<br>";
@@ -89,6 +89,8 @@ if(isset($_GET["minTemp"]) &&
 } else { 
     echo "///";
     echo "Bad Request.";
+    echo "///";
+    echo "2"; //
 }
 
 ?>
