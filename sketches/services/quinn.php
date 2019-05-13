@@ -18,6 +18,7 @@ if(isset($_GET["minTemp"]) &&
     $maintenance = $_GET["maintenance"];
     $goodWeather = true;
     date_default_timezone_set("America/Chicago");
+    //Quinn updates his counsel at midnight, noon, and after a parameter adjustment
     if($parameterUpdate == 0 && date("H")!=1 && date("H")!=12){
         echo "///";
         echo "BAU";
