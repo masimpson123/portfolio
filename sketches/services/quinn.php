@@ -1,74 +1,93 @@
 <?php
 
-$minTemp = $_GET["minTemp"];
-$maxTemp = $_GET["maxTemp"];
-$zipcode = $_GET["zipcode"];
-$timeIn = $_GET["timeIn"];
-$timeOut = $_GET["timeOut"];
-$rainTolerance = $_GET["rainTolerance"];
-
-echo "All is well. ";
-echo "<br>";
-echo "Your zipcode is " . $zipcode . ". "; 
-echo "<br>";
-echo "Your minTemp is " . $minTemp . ". "; 
-echo "<br>";
-echo "Your maxTemp is " . $maxTemp . ". "; 
-echo "<br>";
-echo "Your timeIn is " . $timeIn . ". "; 
-echo "<br>";
-echo "Your timeOut is " . $timeOut . ". "; 
-echo "<br>";
-echo "Your zipcode is " . $zipcode . ". "; 
-
-if($timeIn%100>30){
-    $timeIn=ceil($timeIn/100)*100;
-} else {
-    $timeIn=floor($timeIn/100)*100;
-}
-if($timeIn < 1000){
-    $timeIn = "0" . $timeIn;
-}
-if($timeOut%100>30){
-    $timeOut=ceil($timeOut/100)*100;
-} else {
-    $timeOut=floor($timeOut/100)*100;
-}
-if($timeOut < 1000){
-    $timeOut = "0" . $timeOut;
-}
-
-echo "<br>";
-echo "<br>";
-echo $timeIn;
-echo "<br>";
-echo $timeOut;
-
-$commuteIn = strtotime("May 12 2019 " . $timeIn);
-$commuteOut = strtotime("May 12 2019 " . $timeOut);
-
-echo "<br>";
-echo "<br>";
-echo "Commute In: ";
-echo $commuteIn;
-echo "<br>";
-echo "Commute Out: ";
-echo $commuteOut;
-
-$url = 'http://api.openweathermap.org/data/2.5/forecast/hourly?zip=75039&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=24';
- 
-//Once again, we use file_get_contents to GET the URL in question.
-$contents = file_get_contents($url);
- 
-// Convert JSON string to Array
-$data = json_decode($contents, TRUE);
-//print_r($someArray);
-foreach($data["list"] as $item) {
-    if ($item["dt"] == $commuteIn || $item["dt"] == $commuteOut) {
-        echo "<br>";
-        echo "<br>";
-        echo json_encode($item);
+if(isset($_GET["minTemp"]) && 
+   isset($_GET["maxTemp"]) && 
+   isset($_GET["zipcode"]) && 
+   isset($_GET["timeIn"]) && 
+   isset($_GET["timeOut"]) && 
+   isset($_GET["rainTolerance"]) && 
+   isset($_GET["parameterUpdate"]) && 
+   isset($_GET["maintenance"])){
+    $minTemp = $_GET["minTemp"];
+    $maxTemp = $_GET["maxTemp"];
+    $zipcode = $_GET["zipcode"];
+    $timeIn = $_GET["timeIn"];
+    $timeOut = $_GET["timeOut"];
+    $rainTolerance = $_GET["rainTolerance"];
+    $parameterUpdate = $_GET["parameterUpdate"];
+    $maintenance = $_GET["maintenance"];
+    $goodWeather = true;
+    date_default_timezone_set("America/Chicago");
+    if (date("H")<=2 && $parameterUpdate == 0) {
+        $analyzedDay = "today";
+    } else {
+        $analyzedDay = "tomorrow";
     }
+    if($timeIn%100>30){
+        $timeIn=ceil($timeIn/100)*100;
+    } 
+    if($timeIn%100<=30){
+        $timeIn=floor($timeIn/100)*100;
+    }
+    if($timeIn < 1000){
+        $timeIn = "0" . $timeIn;
+    }
+    if($timeOut%100>30){
+        $timeOut=ceil($timeOut/100)*100;
+    }
+    if($timeOut%100<=30){
+        $timeOut=floor($timeOut/100)*100;
+    }
+    if($timeOut < 1000){
+        $timeOut = "0" . $timeOut;
+    }
+    $commuteIn = strtotime($analyzedDay . $timeIn);
+    $commuteOut = strtotime($analyzedDay . $timeOut);
+    $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=48";
+    $contents = file_get_contents($url);
+    $data = json_decode($contents, TRUE);
+    foreach($data["list"] as $item) {
+        if ($item["dt"] == $commuteIn || $item["dt"] == $commuteOut) {
+            //echo json_encode($item);
+            if($item["main"]["temp"] < $minTemp || $item["main"]["temp"] > $maxTemp){
+                    $goodWeather == false;
+            }
+            if(strpos(strtolower($item["weather"][0]["main"]),"rain") !== false){
+                if ($rainTolerance == 0) {
+                    $goodWeather == false;
+                }
+            }
+        }
+    }
+    echo "///";
+    echo date("D M d", $commuteIn);
+    echo "///";
+    if ($goodWeather == true) {
+        echo "1"; //good to commute
+    } else {
+        echo "0"; //not good to commute
+    }
+    if ($maintenance == 1) {
+    echo "<br>";
+    echo "<br>";
+    echo "Your zipcode is " . $zipcode . ". "; 
+    echo "<br>";
+    echo "Your minTemp is " . $minTemp . ". "; 
+    echo "<br>";
+    echo "Your maxTemp is " . $maxTemp . ". "; 
+    echo "<br>";
+    echo "Your rounded timeIn is " . $timeIn . " (" . $commuteIn . ").";
+    echo "<br>";
+    echo "Your rounded timeOut is " . $timeOut . " (" . $commuteOut . ")."; 
+    echo "<br>";
+    echo "Your zipcode is " . $zipcode . ". "; 
+    echo "<br>";
+    echo "Current Hour is " . date("H") . ". ";
+    echo "<br>";
+    echo "We have analyzed " . $analyzedDay . ". ";
+    }
+} else { 
+    echo "Bad Request.";
 }
 
 ?>
