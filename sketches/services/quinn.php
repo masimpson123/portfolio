@@ -23,7 +23,7 @@ if(isset($_GET["minTemp"]) &&
         echo "///";
         echo "BAU";
         echo "///";
-        echo "3"; //no face
+        echo "4"; //no face
     } else {
         if (date("H")==1 && $parameterUpdate == 0) {
             $analyzedDay = "today";
