@@ -17,6 +17,8 @@ if(isset($_GET["minTemp"]) &&
     $parameterUpdate = $_GET["parameterUpdate"];
     $maintenance = $_GET["maintenance"];
     $goodWeather = true;
+    $analyzedWeather = "";
+    $reasonsToNotBike = "";
     date_default_timezone_set("America/Chicago");
     //Quinn updates his counsel at midnight, noon, and after a parameter adjustment
     if($parameterUpdate == 0 && date("H")!=1 && date("H")!=12){
@@ -60,13 +62,15 @@ if(isset($_GET["minTemp"]) &&
         $data = json_decode($contents, TRUE);
         foreach($data["list"] as $item) {
             if ($item["dt"] == $commuteIn || $item["dt"] == $commuteOut) {
-                //echo json_encode($item);
+                $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
                 if($item["main"]["temp"] < $minTemp || $item["main"]["temp"] > $maxTemp){
                         $goodWeather = false; //temp isn't right
+                        $reasonsToNotBike = $reasonsToNotBike . "///temperature" . "///" . $item["main"]["temp"];
                 }
                 if(strpos(strtolower($item["weather"][0]["main"]),"rain") !== false){
                     if ($rainTolerance == 0) {
                         $goodWeather = false; //no rain allowed
+                        $reasonsToNotBike = $reasonsToNotBike . "///rain";
                     }
                 }
             }
@@ -97,6 +101,12 @@ if(isset($_GET["minTemp"]) &&
         echo "Current Hour is " . date("H") . ". ";
         echo "<br>";
         echo "We have analyzed " . $analyzedDay . ". ";
+        echo "<br>";
+        echo "Reasons to not bike " . $reasonsToNotBike . ". ";
+        echo "<br>";
+        echo "Here is the weather quinn analyzed " . $analyzedWeather;
+        echo "<br>";
+        echo "The response is in Unix time which is 5hrs ahead";
         }
     }
 } else { 
