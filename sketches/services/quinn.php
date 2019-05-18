@@ -1,12 +1,22 @@
 <?php
-if(isset($_GET["minTemp"]) && 
-   isset($_GET["maxTemp"]) && 
-   isset($_GET["zipcode"]) && 
-   isset($_GET["timeIn"]) && 
-   isset($_GET["timeOut"]) && 
-   isset($_GET["rainTolerance"]) && 
-   isset($_GET["parameterUpdate"]) && 
-   isset($_GET["maintenance"])){
+if(
+is_numeric($_GET["zipcode"]) &&
+strlen($_GET["zipcode"]) == 5 &&
+strlen($_GET["maintenance"]) == 1 &&
+strlen($_GET["rainTolerance"]) == 1 &&
+strlen($_GET["parameterUpdate"]) == 1 &&
+(strlen($_GET["minTemp"]) == 1 || strlen($_GET["minTemp"]) == 2 || strlen($_GET["minTemp"]) == 3) &&
+(strlen($_GET["maxTemp"]) == 1 || strlen($_GET["maxTemp"]) == 2 || strlen($_GET["maxTemp"]) == 3) &&
+(strlen($_GET["timeIn"]) == 1 || strlen($_GET["timeIn"]) == 2 || strlen($_GET["timeIn"]) == 3 || strlen($_GET["timeIn"]) == 4) &&
+(strlen($_GET["timeOut"]) == 1 || strlen($_GET["timeOut"]) == 2 || strlen($_GET["timeOut"]) == 3 || strlen($_GET["timeOut"]) == 4) &&
+($_GET["minTemp"] >= -50 && $_GET["minTemp"] <= 150) &&
+($_GET["maxTemp"] >= -50 && $_GET["maxTemp"] <= 150) &&
+($_GET["timeIn"] >= 0 && $_GET["timeIn"] < 2400) &&
+($_GET["timeOut"] >= 0 && $_GET["timeOut"] < 2400) &&
+($_GET["rainTolerance"] == 0 || $_GET["rainTolerance"] == 1) &&
+($_GET["parameterUpdate"] == 0 || $_GET["parameterUpdate"] == 1) &&
+($_GET["maintenance"] == 0 || $_GET["maintenance"] == 1)
+){
     date_default_timezone_set("America/Chicago");
     $minTemp = $_GET["minTemp"];
     $maxTemp = $_GET["maxTemp"];
@@ -97,7 +107,7 @@ if(isset($_GET["minTemp"]) &&
         echo "Counsel Black Out Ends at hour " . $counselBlackOutEnd . ". ";
         echo "</span>";
     }
-} else { 
+} else {
     echo "///";
     echo "Bad Request";
     echo "///";
