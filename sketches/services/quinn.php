@@ -33,12 +33,12 @@ if(isset($_GET["minTemp"]) &&
     $adviceStart = (($timeIn/100)+1);
     //Quinn stops updating council one hour before time in
     //Quinn starts updating his council one hours after time in
-    if($parameterUpdate == 0 && (date("H")>=$adviceStop && date("H")<=$adviceStart)){
+    if($parameterUpdate == 0 && (date("H")<=$adviceStop && date("H")>=$adviceStart)){
         echo "///";
         echo "BAU";
         echo "///";
         echo "4"; //no face
-    } else if ($parameterUpdate == 1) {
+    } else if ($parameterUpdate == 1 || date("H")>=$adviceStop || date("H")<=$adviceStart) {
         if (date("H")>=$adviceStop) { //after today's commute in we analyze tomorrow
             $analyzedDay = "tomorrow";
         } 
