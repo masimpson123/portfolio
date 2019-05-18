@@ -8,6 +8,7 @@ if(isset($_GET["minTemp"]) &&
    isset($_GET["rainTolerance"]) && 
    isset($_GET["parameterUpdate"]) && 
    isset($_GET["maintenance"])){
+    date_default_timezone_set("America/Chicago");
     $minTemp = $_GET["minTemp"];
     $maxTemp = $_GET["maxTemp"];
     $zipcode = $_GET["zipcode"];
@@ -22,33 +23,22 @@ if(isset($_GET["minTemp"]) &&
     $commuteIn = 0;
     $commuteOut = 0;
     $analyzedDay = "";
-    date_default_timezone_set("America/Chicago");
+    $currentHour = (int)date("H");
     $timeIn = ($timeIn % 100 > 30 ? $timeIn=ceil($timeIn/100)*100 : $timeIn);
     $timeIn = ($timeIn % 100 <= 30 ? floor($timeIn/100)*100 : $timeIn);
     $timeIn = ($timeIn < 1000 ? "0" . $timeIn : $timeIn);
     $timeOut = ($timeOut % 100 > 30 ? ceil($timeOut/100)*100 : $timeOut);
     $timeOut = ($timeOut % 100 <= 30 ? floor($timeOut/100)*100 : $timeOut);
     $timeOut = ($timeOut < 1000 ? "0" . $timeOut : $timeOut);
-    $adviceStop = (($timeIn/100)-1);
-    $adviceStart = (($timeIn/100)+1);
-    //Quinn stops updating council one hour before time in
-    //Quinn starts updating his council one hours after time in
-    if($parameterUpdate == 0 && (date("H")<=$adviceStop && date("H")>=$adviceStart)){
+    $counselBlackOutStart = (($timeIn/100)-1);
+    $counselBlackOutEnd = (($timeIn/100)+1);
+    if($parameterUpdate == 0 && ($currentHour>=$counselBlackOutStart && $currentHour<=$counselBlackOutEnd)){
         echo "///";
         echo "BAU";
         echo "///";
         echo "4"; //no face
-    } else if ($parameterUpdate == 1 || date("H")>=$adviceStop || date("H")<=$adviceStart) {
-        if (date("H")>=$adviceStop) { //after today's commute in we analyze tomorrow
-            $analyzedDay = "tomorrow";
-        } 
-        if(date("H")<$adviceStop){ //before today's commute in we analyze today
-            $analyzedDay = "today";
-        }
-        //We convert the users timein and timeout to unix time stamps.
-        //We are given 48 forecasts.
-        //We analyze one forecast that matches the $commuteIn timestamp.
-        //We analyze one forecast that matches the $commuteOut timestamp.
+    } else if ($parameterUpdate == 1 || $currentHour>=$counselBlackOutStart || $currentHour<=$counselBlackOutEnd) {
+        $analyzedDay = ($currentHour>=$counselBlackOutEnd) ? "tomorrow" : "today";
         $commuteIn = strtotime($analyzedDay . $timeIn);
         $commuteOut = strtotime($analyzedDay . $timeOut);
         $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=48";
@@ -72,45 +62,46 @@ if(isset($_GET["minTemp"]) &&
         echo "///";
         echo date("D M d", $commuteIn);
         echo "///";
-        if ($goodWeather == true) {
-            echo "0"; //happy face
-        } else {
-            echo "1"; //sad face
-        }
+        $counsel = ($goodWeather == true) ? 1 : 0 ;
+        echo $counsel
+    }
+    if ($maintenance == 1) {
+        echo "<span style='font-family:sans-serif;line-height:150%;'>";
+        echo "<br>";
+        echo "<br>";
+        echo "Your zipcode is " . $zipcode . ". "; 
+        echo "<br>";
+        echo "Your minTemp is " . $minTemp . ". "; 
+        echo "<br>";
+        echo "Your maxTemp is " . $maxTemp . ". "; 
+        echo "<br>";
+        echo "Your rounded timeIn is " . $timeIn . " (" . $commuteIn . ").";
+        echo "<br>";
+        echo "Your rounded timeOut is " . $timeOut . " (" . $commuteOut . ")."; 
+        echo "<br>";
+        echo "Your zipcode is " . $zipcode . ". "; 
+        echo "<br>";
+        echo "We have analyzed " . $analyzedDay . ", " . date("D M d", $commuteIn) . ". ";
+        echo "<br>";
+        echo "Reasons to not bike: " . $reasonsToNotBike;
+        echo "<span style='color:red;font-weight: bold;'>";
+        echo "<br>";
+        echo "Here is the weather quinn analyzed: " . $analyzedWeather;
+        echo "<br>";
+        echo "The response is in Unix time, which is 5hrs ahead.";
+        echo "</span>";
+        echo "<br>";
+        echo "Current Hour is " . $currentHour . ". ";
+        echo "<br>";
+        echo "Counsel Black Out Starts at hour " . $counselBlackOutStart . ". ";
+        echo "<br>";
+        echo "Counsel Black Out Ends at hour " . $counselBlackOutEnd . ". ";
+        echo "</span>";
     }
 } else { 
     echo "///";
     echo "Bad Request";
     echo "///";
     echo "2"; //broken face
-}
-if ($maintenance == 1) {
-    echo "<br>";
-    echo "<br>";
-    echo "Your zipcode is " . $zipcode . ". "; 
-    echo "<br>";
-    echo "Your minTemp is " . $minTemp . ". "; 
-    echo "<br>";
-    echo "Your maxTemp is " . $maxTemp . ". "; 
-    echo "<br>";
-    echo "Your rounded timeIn is " . $timeIn . " (" . $commuteIn . ").";
-    echo "<br>";
-    echo "Your rounded timeOut is " . $timeOut . " (" . $commuteOut . ")."; 
-    echo "<br>";
-    echo "Your zipcode is " . $zipcode . ". "; 
-    echo "<br>";
-    echo "Current Hour is " . date("H") . ". ";
-    echo "<br>";
-    echo "We have analyzed " . $analyzedDay . ". ";
-    echo "<br>";
-    echo "Reasons to not bike " . $reasonsToNotBike . ". ";
-    echo "<br>";
-    echo "Here is the weather quinn analyzed " . $analyzedWeather;
-    echo "<br>";
-    echo "The response is in Unix time which is 5hrs ahead";
-    echo "<br>";
-    echo "Quinn stops advising at hour " . $adviceStop;
-    echo "<br>";
-    echo "Quinn starts advising at hour " . $adviceStart;
 }
 ?>
