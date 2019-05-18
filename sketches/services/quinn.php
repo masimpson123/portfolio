@@ -22,33 +22,27 @@ if(isset($_GET["minTemp"]) &&
     $commuteIn = 0;
     $commuteOut = 0;
     $analyzedDay = "";
+    date_default_timezone_set("America/Chicago");
+    $timeIn = ($timeIn % 100 > 30 ? $timeIn=ceil($timeIn/100)*100 : $timeIn);
+    $timeIn = ($timeIn % 100 <= 30 ? floor($timeIn/100)*100 : $timeIn);
+    $timeIn = ($timeIn < 1000 ? "0" . $timeIn : $timeIn);
+    $timeOut = ($timeOut % 100 > 30 ? ceil($timeOut/100)*100 : $timeOut);
+    $timeOut = ($timeOut % 100 <= 30 ? floor($timeOut/100)*100 : $timeOut);
+    $timeOut = ($timeOut < 1000 ? "0" . $timeOut : $timeOut);
     $adviceStop = (($timeIn/100)-1);
     $adviceStart = (($timeIn/100)+1);
-    date_default_timezone_set("America/Chicago");
-    if($timeIn%100>30){ //0-29min round down
-        $timeIn=ceil($timeIn/100)*100;
-    } 
-    if($timeIn%100<=30){ //30-59min round up
-        $timeIn=floor($timeIn/100)*100;
-    }
-    if($timeOut%100>30){
-        $timeOut=ceil($timeOut/100)*100;
-    }
-    if($timeOut%100<=30){
-        $timeOut=floor($timeOut/100)*100;
-    }
-    //Quinn stop updating council one hour before time in
-    //Quinn start updating his council two hours after time in
+    //Quinn stops updating council one hour before time in
+    //Quinn starts updating his council one hours after time in
     if($parameterUpdate == 0 && (date("H")>=$adviceStop && date("H")<=$adviceStart)){
         echo "///";
         echo "BAU";
         echo "///";
         echo "4"; //no face
-    } else {
-        if (date("H")>$adviceStart && $parameterUpdate == 0) { //after today's commute in we analyze tomorrow
+    } else if ($parameterUpdate == 1) {
+        if (date("H")>=$adviceStop) { //after today's commute in we analyze tomorrow
             $analyzedDay = "tomorrow";
         } 
-        if($parameterUpdate == 1 || date("H")<$adviceStop){ //before today's commute in we analyze today
+        if(date("H")<$adviceStop){ //before today's commute in we analyze today
             $analyzedDay = "today";
         }
         //We convert the users timein and timeout to unix time stamps.
