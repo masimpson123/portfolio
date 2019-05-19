@@ -38,6 +38,8 @@ strlen($_GET["maintenance"]) == 1 &&
     $analyzedWeather = "";
     $reasonsToNotBike = "";
     $currentTime = time();
+    $oneDay = 86400;
+    $oneHour = 3600;
     $timeIn = ($timeIn % 100 > 30) ? ceil($timeIn/100)*100 : floor($timeIn/100)*100;
     $timeIn = ($timeIn < 1000 && $timeIn >= 100) ? "0" . $timeIn : $timeIn;
     $timeIn = ($timeIn < 100) ? "000" . $timeIn : $timeIn;
@@ -46,17 +48,18 @@ strlen($_GET["maintenance"]) == 1 &&
     $timeOut = ($timeOut < 1000 && $timeOut >= 100) ? "0" . $timeOut : $timeOut;
     $timeOut = ($timeOut < 100) ? "000" . $timeOut : $timeOut;
     $timeOut = strtotime("today" . $timeOut);
-    $timeOut = ($currentTime>($timeIn+3600)) ? $timeOut + 86400 : $timeOut;
-    $timeIn = ($currentTime>($timeIn+3600)) ? $timeIn + 86400 : $timeIn;
-    $timeOut = ($timeOut <= $timeIn) ? $timeOut + 86400 : $timeOut;
-    $counselBlackOutStart = $timeIn-3600;
-    $counselBlackOutEnd = $timeIn+3600;
+    $timeOut = ($currentTime>($timeIn+$oneHour)) ? $timeOut + $oneDay : $timeOut;
+    $timeIn = ($currentTime>($timeIn+$oneHour)) ? $timeIn + $oneDay : $timeIn;
+    $timeOut = ($timeOut <= $timeIn) ? $timeOut + $oneDay : $timeOut;
+    $counselBlackOutStart = $timeIn-$oneHour;
+    $counselBlackOutEnd = $timeIn+$oneHour;
     if($parameterUpdate == 0 && ($currentTime>=$counselBlackOutStart && $currentTime<=$counselBlackOutEnd)){
         echo "///";
         echo "BAU";
         echo "///";
         echo "4";
     } else if ($parameterUpdate == 1 || $currentTime>=$counselBlackOutStart || $currentTime<=$counselBlackOutEnd) {
+        $timeIn = ($currentTime>$timeIn) ? $counselBlackOutEnd : $timeIn;
         $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=48";
         $contents = file_get_contents($url);
         $data = json_decode($contents, TRUE);
@@ -91,9 +94,9 @@ strlen($_GET["maintenance"]) == 1 &&
         echo "<br>";
         echo "Your maxTemp is " . $maxTemp . ". "; 
         echo "<br>";
-        echo "Your rounded timeIn is " . $timeIn . ", (" . date("D M d g:ia",$timeIn) . ").";
+        echo "Your rounded timeIn is " . $timeIn . " (" . date("D M d g:ia",$timeIn) . ").";
         echo "<br>";
-        echo "Your rounded timeOut is " . $timeOut . ", (" . date("D M d g:ia",$timeOut) . ").";
+        echo "Your rounded timeOut is " . $timeOut . " (" . date("D M d g:ia",$timeOut) . ").";
         echo "<br>";
         echo "Reasons to not bike: " . $reasonsToNotBike;
         echo "<span style='color:red;font-weight: bold;'>";
@@ -103,11 +106,11 @@ strlen($_GET["maintenance"]) == 1 &&
         echo "The response is in Unix time, which is 5hrs ahead.";
         echo "</span>";
         echo "<br>";
-        echo "The Current Time is " . $currentTime . ", (" . date("D M d g:ia",$currentTime) . ").";
+        echo "The Current Time is " . $currentTime . " (" . date("D M d g:ia",$currentTime) . ").";
         echo "<br>";
-        echo "Counsel Black Out Starts at Hour " . $counselBlackOutStart . ", (" . date("D M d g:ia",$counselBlackOutStart) . ").";
+        echo "Counsel Black Out Starts at Hour " . $counselBlackOutStart . " (" . date("D M d g:ia",$counselBlackOutStart) . ").";
         echo "<br>";
-        echo "Counsel Black Out Ends at Hour " . $counselBlackOutEnd . ", (" . date("D M d g:ia",$counselBlackOutEnd) . ").";
+        echo "Counsel Black Out Ends at Hour " . $counselBlackOutEnd . " (" . date("D M d g:ia",$counselBlackOutEnd) . ").";
         echo "</span>";
     }
 } else {
