@@ -60,6 +60,8 @@ strlen($_GET["maintenance"]) == 1 &&
     $timeOut = ($timeOut <= $timeIn) ? $timeOut + $oneDay : $timeOut;
     $counselBlackOutStart = $timeIn-$oneHour;
     $counselBlackOutEnd = $timeIn+$oneHour;
+    $sunrise = "";
+    $sunset = "";
     if($parameterUpdate == 0 && ($currentTime>=$counselBlackOutStart && $currentTime<=$counselBlackOutEnd)){
         echo "///";
         echo "BAU";
@@ -122,10 +124,12 @@ strlen($_GET["maintenance"]) == 1 &&
         echo "<br>";
         echo "Your true timeOut is " . $trueTimeOut . " (" . date("D M d g:ia",$trueTimeOut) . ").";
         echo "<br>";
-        echo "Sunrise is " . $sunrise . " (" . date("D M d g:ia",$sunrise) . ").";
-        echo "<br>";
-        echo "Sunset is " . $sunset . " (" . date("D M d g:ia",$sunset) . ").";
-        echo "<br>";
+        if(strlen($sunrise) > 0 && strlen($sunset)){
+            echo "Sunrise is " . $sunrise . " (" . date("D M d g:ia",$sunrise) . ").";
+            echo "<br>";
+            echo "Sunset is " . $sunset . " (" . date("D M d g:ia",$sunset) . ").";
+            echo "<br>";
+        }
         echo "The Current Time is " . $currentTime . " (" . date("D M d g:ia",$currentTime) . ").";
         echo "<br>";
         echo "Counsel Black Out Starts at Hour " . $counselBlackOutStart . " (" . date("D M d g:ia",$counselBlackOutStart) . ").";
