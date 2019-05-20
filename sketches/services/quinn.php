@@ -40,101 +40,124 @@ strlen($_GET["maintenance"]) == 1 &&
     $maintenance = $_GET["maintenance"];
     $goodWeather = true;
     $analyzedWeather = "";
-    $reasonsToNotBike = "";
-    $currentTime = time();
+    $reasonsToNotBike = "None!";
     $oneDay = 86400;
     $oneHour = 3600;
     $oneMin = 60;
+    $currentTime = time();
     $trueTimeIn = strtotime("today" . $timeIn);
-    $timeIn = ($timeIn % 100 > 30) ? ceil($timeIn/100)*100 : floor($timeIn/100)*100;
-    $timeIn = ($timeIn < 1000 && $timeIn >= 100) ? "0" . $timeIn : $timeIn;
-    $timeIn = ($timeIn < 100) ? "000" . $timeIn : $timeIn;
-    $timeIn = strtotime("today" . $timeIn);
     $trueTimeOut = strtotime("today" . $timeOut);
-    $timeOut = ($timeOut % 100) > 30 ? ceil($timeOut/100)*100 : floor($timeOut/100)*100;
-    $timeOut = ($timeOut < 1000 && $timeOut >= 100) ? "0" . $timeOut : $timeOut;
-    $timeOut = ($timeOut < 100) ? "000" . $timeOut : $timeOut;
-    $timeOut = strtotime("today" . $timeOut);
-    $timeOut = ($currentTime>($timeIn+$oneHour)) ? $timeOut + $oneDay : $timeOut;
-    $timeIn = ($currentTime>($timeIn+$oneHour)) ? $timeIn + $oneDay : $timeIn;
-    $timeOut = ($timeOut <= $timeIn) ? $timeOut + $oneDay : $timeOut;
-    $counselBlackOutStart = $timeIn-$oneHour;
-    $counselBlackOutEnd = $timeIn+$oneHour;
-    $sunrise = "";
-    $sunset = "";
-    if($parameterUpdate == 0 && ($currentTime>=$counselBlackOutStart && $currentTime<=$counselBlackOutEnd)){
-        echo "///";
-        echo "BAU";
-        echo "///";
-        echo "4";
-    } else if ($parameterUpdate == 1 || $currentTime>=$counselBlackOutStart || $currentTime<=$counselBlackOutEnd) {
-        $timeIn = ($currentTime>$timeIn) ? $counselBlackOutEnd : $timeIn;
-        $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=48";
-        $contents = file_get_contents($url);
-        $data = json_decode($contents, TRUE);
-        foreach($data["list"] as $item) {
-            if ($item["dt"] == $timeIn || $item["dt"] == $timeOut) {
-                $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
-                if($item["main"]["temp"] < $minTemp || $item["main"]["temp"] > $maxTemp){
-                        $goodWeather = false;
-                        $reasonsToNotBike = $reasonsToNotBike . "///temperature" . "///" . $item["main"]["temp"];
-                }
-                if(strpos(strtolower($item["weather"][0]["main"]),"rain") !== false){
-                    if ($rainTolerance == 0) {
-                        $goodWeather = false;
-                        $reasonsToNotBike = $reasonsToNotBike . "///rain";
-                    }
-                }
-            }
-        }
-        if($nightRider == 0){
-            $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&mode=xml";
-            $contents = file_get_contents($url);
-            $xml = simplexml_load_string($contents);
-            date_default_timezone_set("UTC");
-            $sunrise = strtotime($xml->sun['rise']);
-            $sunset = strtotime($xml->sun['set']);
-            date_default_timezone_set("America/Chicago");
-            if($trueTimeIn < $sunrise || $trueTimeIn > $sunset || $trueTimeOut < $sunrise || $trueTimeOut > $sunset){
-                $goodWeather = false;
-                $reasonsToNotBike = $reasonsToNotBike . "///darkness";
-            }
-        }
-        echo "///";
-        echo date("D M d", $timeIn);
-        echo "///";
-        $counsel = ($goodWeather == true) ? 1 : 0;
-        echo $counsel;
+    $roundedTimeIn = $trueTimeIn;
+    $minutes = $roundedTimeIn%3600;
+    $roundedTimeIn -= $minutes;
+    $roundedTimeIn = ($minutes > 1800) ? $roundedTimeIn + $oneHour : $roundedTimeIn;
+    $roundedTimeOut = $trueTimeOut;
+    $minutes = $roundedTimeOut%3600;
+    $roundedTimeOut -= $minutes;
+    $roundedTimeOut = ($minutes > 1800) ? $roundedTimeOut + $oneHour : $roundedTimeOut;
+    $counselDayShiftTime = $trueTimeIn + ($oneHour*2);
+    if($currentTime > $counselDayShiftTime){
+        $trueTimeIn = $trueTimeIn + $oneDay;
+        $trueTimeOut = $trueTimeOut + $oneDay;
+        $roundedTimeIn = $roundedTimeIn + $oneDay;
+        $roundedTimeOut = $roundedTimeOut + $oneDay;
     }
+    if($trueTimeIn > $trueTimeOut){
+        $trueTimeOut = $trueTimeOut + $oneDay;
+        $roundedTimeOut = $roundedTimeOut + $oneDay;
+    }
+    $sunriseToday = 0;
+    $sunsetToday = 0;
+    $sunriseTomorrow = 0;
+    $sunsetTomorrow = 0;
+    $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=48";
+    $contents = file_get_contents($url);
+    $data = json_decode($contents, TRUE);
+    foreach($data["list"] as $item) {
+        if ($item["dt"] == $roundedTimeIn || $item["dt"] == $roundedTimeOut) {
+            $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
+            if($item["main"]["temp"] < $minTemp || $item["main"]["temp"] > $maxTemp){
+                    $goodWeather = false;
+                    $reasonsToNotBike = $reasonsToNotBike . "///temperature" . "///" . $item["main"]["temp"];
+            }
+            if(strpos(strtolower($item["weather"][0]["main"]),"rain") !== false){
+                if ($rainTolerance == 0) {
+                    $goodWeather = false;
+                    $reasonsToNotBike = $reasonsToNotBike . "///rain";
+                }
+            }
+        }
+    }
+    if($nightRider == 0){
+        $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&mode=xml";
+        $contents = file_get_contents($url);
+        $xml = simplexml_load_string($contents);
+        date_default_timezone_set("UTC");
+        $sunriseToday = strtotime($xml->sun['rise']);
+        $sunsetToday = strtotime($xml->sun['set']);
+        $sunriseTomorrow = $sunriseToday + $oneDay;
+        $sunsetTomorrow = $sunsetToday + $oneDay;
+        date_default_timezone_set("America/Chicago");
+        if(
+        $trueTimeIn < $sunriseToday || 
+        ($trueTimeIn > $sunsetToday && $trueTimeIn < $sunriseTomorrow) ||
+        $trueTimeIn > $sunsetTomorrow ||
+        $trueTimeOut < $sunriseToday || 
+        ($trueTimeOut > $sunsetToday && $trueTimeOut < $sunriseTomorrow) ||
+        $trueTimeOut > $sunsetTomorrow
+        ){
+            $goodWeather = false;
+            $reasonsToNotBike = $reasonsToNotBike . "///darkness";
+        }
+    }
+    echo "///";
+    echo date("D M d", $roundedTimeIn);
+    echo "///";
+    $counsel = ($goodWeather == true) ? 1 : 0;
+    echo $counsel;
     if ($maintenance == 1) {
         echo "<span style='font-family:sans-serif;line-height:150%;'>";
         echo "<br>";
         echo "<br>";
-        echo "Your zipcode is " . $zipcode . ". "; 
+        echo "<hr>";
         echo "<br>";
-        echo "Your minTemp is " . $minTemp . ". "; 
+        echo "Your zipcode from client is " . $zipcode . ". "; 
         echo "<br>";
-        echo "Your maxTemp is " . $maxTemp . ". "; 
+        echo "Your minTemp from client is " . $minTemp . ". "; 
         echo "<br>";
-        echo "Your rounded timeIn is " . $timeIn . " (" . date("D M d g:ia",$timeIn) . ").";
+        echo "Your maxTemp from client is " . $maxTemp . ". "; 
         echo "<br>";
-        echo "Your rounded timeOut is " . $timeOut . " (" . date("D M d g:ia",$timeOut) . ").";
+        echo "Your timeIn from client is " . $timeIn . ". "; 
         echo "<br>";
-        echo "Your true timeIn is " . $trueTimeIn . " (" . date("D M d g:ia",$trueTimeIn) . ").";
+        echo "Your timeOut from client is " . $timeOut . ". "; 
         echo "<br>";
-        echo "Your true timeOut is " . $trueTimeOut . " (" . date("D M d g:ia",$trueTimeOut) . ").";
         echo "<br>";
-        if(strlen($sunrise) > 0 && strlen($sunset)){
-            echo "Sunrise is " . $sunrise . " (" . date("D M d g:ia",$sunrise) . ").";
+        echo "<hr>";
+        echo "<br>";
+        echo "The currentTime is " . $currentTime . " (" . date("D M d g:ia",$currentTime) . ").";
+        echo "<br>";
+        echo "Your counselDayShiftTime is " . $counselDayShiftTime . " (" . date("D M d g:ia",$counselDayShiftTime) . ").";
+        echo "<br>";
+        echo "Your trueTimeIn is " . $trueTimeIn . " (" . date("D M d g:ia",$trueTimeIn) . ").";
+        echo "<br>";
+        echo "Your trueTimeOut is " . $trueTimeOut . " (" . date("D M d g:ia",$trueTimeOut) . ").";
+        echo "<br>";
+        echo "Your roundedTimeIn is " . $roundedTimeIn . " (" . date("D M d g:ia",$roundedTimeIn) . ").";
+        echo "<br>";
+        echo "Your roundedTimeOut is " . $roundedTimeOut . " (" . date("D M d g:ia",$roundedTimeOut) . ").";
+        echo "<br>";
+        if($nightRider == 0){
+            echo "Sunrise today is " . $sunriseToday . " (" . date("D M d g:ia",$sunriseToday) . ").";
             echo "<br>";
-            echo "Sunset is " . $sunset . " (" . date("D M d g:ia",$sunset) . ").";
+            echo "Sunset today is " . $sunsetToday . " (" . date("D M d g:ia",$sunsetToday) . ").";
+            echo "<br>";
+            echo "Sunrise tomorrow is " . $sunriseTomorrow . " (" . date("D M d g:ia",$sunriseTomorrow) . ").";
+            echo "<br>";
+            echo "Sunset tomorrow is " . $sunsetTomorrow . " (" . date("D M d g:ia",$sunsetTomorrow) . ").";
             echo "<br>";
         }
-        echo "The Current Time is " . $currentTime . " (" . date("D M d g:ia",$currentTime) . ").";
         echo "<br>";
-        echo "Counsel Black Out Starts at Hour " . $counselBlackOutStart . " (" . date("D M d g:ia",$counselBlackOutStart) . ").";
-        echo "<br>";
-        echo "Counsel Black Out Ends at Hour " . $counselBlackOutEnd . " (" . date("D M d g:ia",$counselBlackOutEnd) . ").";
+        echo "<hr>";
         echo "<br>";
         echo "Reasons to not bike: " . $reasonsToNotBike;
         echo "<span style='color:red;font-weight: bold;'>";
@@ -142,6 +165,9 @@ strlen($_GET["maintenance"]) == 1 &&
         echo "Here is the weather Quinn analyzed: " . $analyzedWeather;
         echo "<br>";
         echo "The response is in Unix time, which is 5hrs ahead.";
+        echo "<br>";
+        echo "<br>";
+        echo "<hr>";
         echo "</span>";
         echo "</span>";
     }
