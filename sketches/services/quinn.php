@@ -40,7 +40,7 @@ strlen($_GET["maintenance"]) == 1 &&
     $maintenance = $_GET["maintenance"];
     $goodWeather = true;
     $analyzedWeather = "";
-    $reasonsToNotBike = "None!";
+    $reasonsToNotBike = "";
     $oneDay = 86400;
     $oneHour = 3600;
     $oneMin = 60;
