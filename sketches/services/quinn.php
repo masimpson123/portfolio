@@ -163,7 +163,7 @@ strlen($_GET["maintenance"]) == 1 &&
         echo "<br>";
         echo "Here is the weather Quinn analyzed: " . $analyzedWeather;
         echo "<br>";
-        echo "The response is in Unix time, which is 5hrs ahead.";
+        echo "The response is in Unix time.";
         echo "<br>";
         echo "<br>";
         echo "<hr>";
