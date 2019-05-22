@@ -70,17 +70,18 @@ strlen($_GET["maintenance"]) == 1 &&
     $sunsetToday = 0;
     $sunriseTomorrow = 0;
     $sunsetTomorrow = 0;
-    $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&cnt=48";
+    $url = "https://api.weatherbit.io/v2.0/forecast/hourly?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
     $contents = file_get_contents($url);
     $data = json_decode($contents, TRUE);
-    foreach($data["list"] as $item) {
-        if ($item["dt"] == $roundedTimeIn || $item["dt"] == $roundedTimeOut) {
+    //echo json_encode($data);
+    foreach($data["data"] as $item) {
+        if ($item["ts"] == $roundedTimeIn || $item["ts"] == $roundedTimeOut) {
             $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
-            if($item["main"]["temp"] < $minTemp || $item["main"]["temp"] > $maxTemp){
+            if($item["temp"] < $minTemp || $item["temp"] > $maxTemp){
                     $goodWeather = false;
                     $reasonsToNotBike = $reasonsToNotBike . "///temperature" . "///" . $item["main"]["temp"];
             }
-            if(strpos(strtolower($item["weather"][0]["main"]),"rain") !== false){
+            if(strpos(strtolower($item["weather"]["description"]),"rain") !== false){
                 if ($rainTolerance == 0) {
                     $goodWeather = false;
                     $reasonsToNotBike = $reasonsToNotBike . "///rain";
@@ -89,12 +90,12 @@ strlen($_GET["maintenance"]) == 1 &&
         }
     }
     if($nightRider == 0){
-        $url = "http://api.openweathermap.org/data/2.5/forecast/hourly?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&mode=xml";
+        $url = "http://api.openweathermap.org/data/2.5/weather?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&mode=xml";
         $contents = file_get_contents($url);
         $xml = simplexml_load_string($contents);
         date_default_timezone_set("UTC");
-        $sunriseToday = strtotime($xml->sun['rise']);
-        $sunsetToday = strtotime($xml->sun['set']);
+        $sunriseToday = strtotime($xml->city->sun['rise']);
+        $sunsetToday = strtotime($xml->city->sun['set']);
         $sunriseTomorrow = $sunriseToday + $oneDay;
         $sunsetTomorrow = $sunsetToday + $oneDay;
         date_default_timezone_set("America/Chicago");
