@@ -45,6 +45,12 @@ strlen($_GET["maintenance"]) == 1 &&
     $oneHour = 3600;
     $oneMin = 60;
     $currentTime = time();
+    $timeIn = ($timeIn<10) ? "0" . $timeIn : $timeIn;
+    $timeIn = ($timeIn<100) ? "0" . $timeIn : $timeIn;
+    $timeIn = ($timeIn<1000) ? "0" . $timeIn : $timeIn;
+    $timeOut = ($timeOut<10) ? "0" . $timeOut : $timeOut;
+    $timeOut = ($timeOut<100) ? "0" . $timeOut : $timeOut;
+    $timeOut = ($timeOut<1000) ? "0" . $timeOut : $timeOut;
     $trueTimeIn = strtotime("today" . $timeIn);
     $trueTimeOut = strtotime("today" . $timeOut);
     $roundedTimeIn = $trueTimeIn;
@@ -79,7 +85,7 @@ strlen($_GET["maintenance"]) == 1 &&
             $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
             if($item["temp"] < $minTemp || $item["temp"] > $maxTemp){
                     $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "///temperature" . "///" . $item["main"]["temp"];
+                    $reasonsToNotBike = $reasonsToNotBike . "///temperature" . "///" . $item["temp"];
             }
             if(strpos(strtolower($item["weather"]["description"]),"rain") !== false){
                 if ($rainTolerance == 0) {
