@@ -119,13 +119,13 @@ strlen($_GET["maintenance"]) == 1 &&
     }
     echo "///";
     echo date("D M d", $roundedTimeIn);
-    echo "///";
-    $counsel = ($goodWeather == true) ? 1 : 0;
-    echo $counsel;
-    if(strlen($reasonsToNotBike) > 3){
+    if(strlen($reasonsToNotBike) > 0){
         echo " | ";
         echo $reasonsToNotBike;    
     }
+    echo "///";
+    $counsel = ($goodWeather == true) ? 1 : 0;
+    echo $counsel;
     if ($maintenance == 1) {
         echo "<span style='font-family:sans-serif;line-height:150%;'>";
         echo "<br>";
