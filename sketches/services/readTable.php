@@ -11,7 +11,11 @@ require 'credentials.php';
 $database = $_POST["databaseSelect"];
 $table = $_POST["tableSelect"];
 
-try { //We conduct two SQL Queries. One to count the table rows. One to return the table contents.
+try { 
+//We conduct three SQL Queries. 
+//One to return the table contents. 
+//One to count the table rows. 
+//One to return the column headers.
 //we create a PHP Data Object
 $conn = new PDO('mysql:host=' . $servername . ';dbname=' . $database, $username, $password);
 //we set some error handling attributes
