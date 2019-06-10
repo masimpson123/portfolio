@@ -83,9 +83,13 @@ strlen($_GET["maintenance"]) == 1 &&
     foreach($data["data"] as $item) {
         if ($item["ts"] == $roundedTimeIn || $item["ts"] == $roundedTimeOut) {
             $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
-            if($item["temp"] < $minTemp || $item["temp"] > $maxTemp){
+            if($item["temp"] > $maxTemp){
                     $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Temp " . $item["temp"] . " ";
+                    $reasonsToNotBike = $reasonsToNotBike . "Hot ";
+            }
+            if($item["temp"] < $minTemp){
+                    $goodWeather = false;
+                    $reasonsToNotBike = $reasonsToNotBike . "Cold ";
             }
             if(strpos(strtolower($item["weather"]["description"]),"rain") !== false){
                 if ($rainTolerance == 0) {
