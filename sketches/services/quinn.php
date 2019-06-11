@@ -85,11 +85,11 @@ strlen($_GET["maintenance"]) == 1 &&
             $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
             if($item["temp"] > $maxTemp){
                     $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Hot ";
+                    $reasonsToNotBike = $reasonsToNotBike . "Too Hot " . $item["temp"] . " ";
             }
             if($item["temp"] < $minTemp){
                     $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Cold ";
+                    $reasonsToNotBike = $reasonsToNotBike . "Too Cold " . $item["temp"] . " ";
             }
             if(strpos(strtolower($item["weather"]["description"]),"rain") !== false){
                 if ($rainTolerance == 0) {
@@ -118,18 +118,16 @@ strlen($_GET["maintenance"]) == 1 &&
         $trueTimeOut > $sunsetTomorrow
         ){
             $goodWeather = false;
-            $reasonsToNotBike = $reasonsToNotBike . "Dark ";
+            $reasonsToNotBike = $reasonsToNotBike . "Darkness ";
         }
     }
     echo "///";
     echo date("D M d", $roundedTimeIn);
-    if(strlen($reasonsToNotBike) > 0){
-        echo " | ";
-        echo $reasonsToNotBike;    
-    }
     echo "///";
     $counsel = ($goodWeather == true) ? 1 : 0;
     echo $counsel;
+    echo "///";
+    echo $reasonsToNotBike;    
     if ($maintenance == 1) {
         echo "<span style='font-family:sans-serif;line-height:150%;'>";
         echo "<br>";
