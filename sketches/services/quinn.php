@@ -85,16 +85,16 @@ strlen($_GET["maintenance"]) == 1 &&
             $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
             if($item["temp"] > $maxTemp){
                     $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Too Hot " . $item["temp"] . " ";
+                    $reasonsToNotBike = $reasonsToNotBike . "Too Hot " . $item["temp"];
             }
             if($item["temp"] < $minTemp){
                     $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Too Cold " . $item["temp"] . " ";
+                    $reasonsToNotBike = $reasonsToNotBike . "Too Cold " . $item["temp"];
             }
             if(strpos(strtolower($item["weather"]["description"]),"rain") !== false){
                 if ($rainTolerance == 0) {
                     $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Rain ";
+                    $reasonsToNotBike = $reasonsToNotBike . "Rain";
                 }
             }
         }
@@ -118,16 +118,11 @@ strlen($_GET["maintenance"]) == 1 &&
         $trueTimeOut > $sunsetTomorrow
         ){
             $goodWeather = false;
-            $reasonsToNotBike = $reasonsToNotBike . "Darkness ";
+            $reasonsToNotBike = $reasonsToNotBike . "Darkness";
         }
     }
-    echo "///";
-    echo date("D M d", $roundedTimeIn);
-    echo "///";
     $counsel = ($goodWeather == true) ? 1 : 0;
-    echo $counsel;
-    echo "///";
-    echo $reasonsToNotBike;    
+    echo '{"AnalyzedDay":"'.date("D M d", $roundedTimeIn).'","Counsel":"'.$counsel.'","Rationale":"'.$reasonsToNotBike.'"}';  
     if ($maintenance == 1) {
         echo "<span style='font-family:sans-serif;line-height:150%;'>";
         echo "<br>";
@@ -183,9 +178,6 @@ strlen($_GET["maintenance"]) == 1 &&
         echo "</span>";
     }
 } else {
-    echo "///";
-    echo "Bad Request";
-    echo "///";
-    echo "2";
+    echo '{"AnalyzedDay":"Bad Request","Counsel":"","Rationale":""}';
 }
 ?>
