@@ -178,6 +178,6 @@ strlen($_GET["maintenance"]) == 1 &&
         echo "</span>";
     }
 } else {
-    echo '{"AnalyzedDay":"Bad Request","Counsel":"","Rationale":""}';
+    echo '{"AnalyzedDay":"Bad Request","Counsel":"2","Rationale":""}';
 }
 ?>
