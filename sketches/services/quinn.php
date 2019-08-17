@@ -123,7 +123,11 @@ strlen($_GET["maintenance"]) == 1 &&
     }
     $reasonsToNotBike = substr($reasonsToNotBike, 0, -1);
     $counsel = ($goodWeather == true) ? 1 : 0;
-    echo '{"AnalyzedDay":"'.date("D M d", $roundedTimeIn).'","Counsel":"'.$counsel.'","Rationale":"'.$reasonsToNotBike.'"}';  
+    echo '{"AnalyzedDay":"'.date("D M d", $roundedTimeIn).'","Counsel":"'.$counsel.'","Rationale":"'.$reasonsToNotBike.'"}'; 
+    //echo '{"AnalyzedDay":"TEST_1","Counsel":"0","Rationale":""}'; 
+    //echo '{"AnalyzedDay":"TEST_2","Counsel":"2","Rationale":"Reason"}'; 
+    //echo '{"AnalyzedDay":"TEST_3","Counsel":"3","Rationale":""}'; 
+    //echo '{"AnalyzedDay":"TEST_4","Counsel":"4","Rationale":"Two Reasons"}'; 
     if ($maintenance == 1) {
         echo "<span style='font-family:sans-serif;line-height:150%;'>";
         echo "<br>";
