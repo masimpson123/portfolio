@@ -76,11 +76,11 @@ strlen($_GET["maintenance"]) == 1 &&
     $sunsetToday = 0;
     $sunriseTomorrow = 0;
     $sunsetTomorrow = 0;
+    //Build / Return Response START
     $url = "https://api.weatherbit.io/v2.0/forecast/hourly?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
     $contents = file_get_contents($url);
     $data = json_decode($contents, TRUE);
-    //echo json_encode($data);
-    if($data["data"]==null){
+    if($data["data"] == null){
         echo '{"AnalyzedDay":"Endpoint Failure","Counsel":"2","Rationale":""}';
     } else {
         //echo $data;
@@ -131,7 +131,8 @@ strlen($_GET["maintenance"]) == 1 &&
         //echo '{"AnalyzedDay":"TEST_1","Counsel":"0","Rationale":""}'; 
         //echo '{"AnalyzedDay":"TEST_2","Counsel":"1","Rationale":"Reason"}'; 
         //echo '{"AnalyzedDay":"TEST_3","Counsel":"2","Rationale":""}'; 
-        //echo '{"AnalyzedDay":"TEST_4","Counsel":"3","Rationale":"Two Reasons"}'; 
+        //echo '{"AnalyzedDay":"TEST_4","Counsel":"3","Rationale":"Two Reasons"}';
+        //Build / Return Response END
     }
     if ($maintenance == 1) {
         echo "<span style='font-family:sans-serif;line-height:150%;'>";
