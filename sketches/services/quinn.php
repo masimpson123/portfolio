@@ -80,54 +80,59 @@ strlen($_GET["maintenance"]) == 1 &&
     $contents = file_get_contents($url);
     $data = json_decode($contents, TRUE);
     //echo json_encode($data);
-    foreach($data["data"] as $item) {
-        if ($item["ts"] == $roundedTimeIn || $item["ts"] == $roundedTimeOut) {
-            $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
-            if($item["temp"] > $maxTemp){
-                    $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Too Hot " . $item["temp"] . " ";
-            }
-            if($item["temp"] < $minTemp){
-                    $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Too Cold " . $item["temp"] . " ";
-            }
-            if(strpos(strtolower($item["weather"]["description"]),"rain") !== false){
-                if ($rainTolerance == 0) {
-                    $goodWeather = false;
-                    $reasonsToNotBike = $reasonsToNotBike . "Rain" . " ";
+    if($data["data"]==null){
+        echo '{"AnalyzedDay":"Endpoint Failure","Counsel":"2","Rationale":""}';
+    } else {
+        //echo $data;
+        foreach($data["data"] as $item) {
+            if ($item["ts"] == $roundedTimeIn || $item["ts"] == $roundedTimeOut) {
+                $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
+                if($item["temp"] > $maxTemp){
+                        $goodWeather = false;
+                        $reasonsToNotBike = $reasonsToNotBike . "Too Hot " . $item["temp"] . " ";
+                }
+                if($item["temp"] < $minTemp){
+                        $goodWeather = false;
+                        $reasonsToNotBike = $reasonsToNotBike . "Too Cold " . $item["temp"] . " ";
+                }
+                if(strpos(strtolower($item["weather"]["description"]),"rain") !== false){
+                    if ($rainTolerance == 0) {
+                        $goodWeather = false;
+                        $reasonsToNotBike = $reasonsToNotBike . "Rain" . " ";
+                    }
                 }
             }
         }
-    }
-    if($nightRider == 0){
-        $url = "http://api.openweathermap.org/data/2.5/weather?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&mode=xml";
-        $contents = file_get_contents($url);
-        $xml = simplexml_load_string($contents);
-        date_default_timezone_set("UTC");
-        $sunriseToday = strtotime($xml->city->sun['rise']);
-        $sunsetToday = strtotime($xml->city->sun['set']);
-        $sunriseTomorrow = $sunriseToday + $oneDay;
-        $sunsetTomorrow = $sunsetToday + $oneDay;
-        date_default_timezone_set("America/Chicago");
-        if(
-        $trueTimeIn < $sunriseToday || 
-        ($trueTimeIn > $sunsetToday && $trueTimeIn < $sunriseTomorrow) ||
-        $trueTimeIn > $sunsetTomorrow ||
-        $trueTimeOut < $sunriseToday || 
-        ($trueTimeOut > $sunsetToday && $trueTimeOut < $sunriseTomorrow) ||
-        $trueTimeOut > $sunsetTomorrow
-        ){
-            $goodWeather = false;
-            $reasonsToNotBike = $reasonsToNotBike . "Darkness" . " ";
+        if($nightRider == 0){
+            $url = "http://api.openweathermap.org/data/2.5/weather?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&mode=xml";
+            $contents = file_get_contents($url);
+            $xml = simplexml_load_string($contents);
+            date_default_timezone_set("UTC");
+            $sunriseToday = strtotime($xml->city->sun['rise']);
+            $sunsetToday = strtotime($xml->city->sun['set']);
+            $sunriseTomorrow = $sunriseToday + $oneDay;
+            $sunsetTomorrow = $sunsetToday + $oneDay;
+            date_default_timezone_set("America/Chicago");
+            if(
+            $trueTimeIn < $sunriseToday || 
+            ($trueTimeIn > $sunsetToday && $trueTimeIn < $sunriseTomorrow) ||
+            $trueTimeIn > $sunsetTomorrow ||
+            $trueTimeOut < $sunriseToday || 
+            ($trueTimeOut > $sunsetToday && $trueTimeOut < $sunriseTomorrow) ||
+            $trueTimeOut > $sunsetTomorrow
+            ){
+                $goodWeather = false;
+                $reasonsToNotBike = $reasonsToNotBike . "Darkness" . " ";
+            }
         }
+        $reasonsToNotBike = substr($reasonsToNotBike, 0, -1);
+        $counsel = ($goodWeather == true) ? 1 : 0;
+        echo '{"AnalyzedDay":"'.date("D M d", $roundedTimeIn).'","Counsel":"'.$counsel.'","Rationale":"'.$reasonsToNotBike.'"}'; 
+        //echo '{"AnalyzedDay":"TEST_1","Counsel":"0","Rationale":""}'; 
+        //echo '{"AnalyzedDay":"TEST_2","Counsel":"1","Rationale":"Reason"}'; 
+        //echo '{"AnalyzedDay":"TEST_3","Counsel":"2","Rationale":""}'; 
+        //echo '{"AnalyzedDay":"TEST_4","Counsel":"3","Rationale":"Two Reasons"}'; 
     }
-    $reasonsToNotBike = substr($reasonsToNotBike, 0, -1);
-    $counsel = ($goodWeather == true) ? 1 : 0;
-    echo '{"AnalyzedDay":"'.date("D M d", $roundedTimeIn).'","Counsel":"'.$counsel.'","Rationale":"'.$reasonsToNotBike.'"}'; 
-    //echo '{"AnalyzedDay":"TEST_1","Counsel":"0","Rationale":""}'; 
-    //echo '{"AnalyzedDay":"TEST_2","Counsel":"1","Rationale":"Reason"}'; 
-    //echo '{"AnalyzedDay":"TEST_3","Counsel":"2","Rationale":""}'; 
-    //echo '{"AnalyzedDay":"TEST_4","Counsel":"3","Rationale":"Two Reasons"}'; 
     if ($maintenance == 1) {
         echo "<span style='font-family:sans-serif;line-height:150%;'>";
         echo "<br>";
