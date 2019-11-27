@@ -4,7 +4,7 @@
 
 <head>
 
-	<title>Michael Simpson Design</title>
+	<title>Michael Simpson</title>
 
 	<link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon" />
 
