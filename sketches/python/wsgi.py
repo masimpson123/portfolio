@@ -5,5 +5,6 @@ def application(env, start_response):
 	])
 
 	print(env)
+	print(env.REQUEST_METHOD)
 
 	return [b"HELLO WORLD!"]
