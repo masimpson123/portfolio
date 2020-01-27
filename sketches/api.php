@@ -121,121 +121,125 @@
 	
     //REQUEST SEND FUNCTIONS
 	function submitForm(){ //we add each image from our array to our form and then send our form to PHP
-    addImage();
-	var fd = new FormData(); //we could create this using <form> in html
-	for(i=0;i<arrayOfAllImages.length;i++){
-		var file = arrayOfAllImages[i]
-		console.log(file + " is added to form");
-		fd.append("theFile" + i, file); //we add each image to our form
-	}
-	xhttpOne.open("POST", "services/uploadFileStorePath.php"); //we initialize the request
-	//xhttpOne.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //this header breaks image upload but is needed for other forms of inputs?
-	xhttpOne.send(fd);
-	//we reset our file input and image array
-	document.getElementById('fileMaster').value = "";
-	arrayOfAllImages = [];
+        addImage();
+        var fd = new FormData(); //we could create this using <form> in html
+        for(i=0;i<arrayOfAllImages.length;i++){
+            var file = arrayOfAllImages[i]
+            console.log(file + " is added to form");
+            fd.append("theFile" + i, file); //we add each image to our form
+        }
+        xhttpOne.open("POST", "services/uploadFileStorePath.php"); //we initialize the request
+        //xhttpOne.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+        //this header breaks image upload but is needed for other forms of inputs?
+        xhttpOne.send(fd);
+        //we reset our file input and image array
+        document.getElementById('fileMaster').value = "";
+        arrayOfAllImages = [];
 	}
 	function returnFilePaths(){
-	xhttpTwo.open("POST", "services/returnFilePaths.php"); //we initialize the request
-	xhttpTwo.send();
+        xhttpTwo.open("POST", "services/returnFilePaths.php"); //we initialize the request
+        xhttpTwo.send();
 	}
 	function getWeather(){
-    console.log(document.getElementById('zipInput').value);
-	xhttpThree.open("POST", "http://api.openweathermap.org/data/2.5/weather?zip="+document.getElementById('zipInput').value+"&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96", true); //we initialize the request
-	xhttpThree.send();
+        console.log(document.getElementById('zipInput').value);
+        xhttpThree.open("POST", "http://api.openweathermap.org/data/2.5/weather?zip="+document.getElementById('zipInput').value+"&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96", true); //we initialize the request
+        xhttpThree.send();
 	}
 	function sendParsedFormDataObjectToPHP(){
-    gatherFormData('importantForm');
-    parseFormDataObject();
-    document.getElementById('payloadHolder').innerHTML = "PAYLOAD<br>" + parsedFormDataObject;
-	xhttpFour.open("POST", "services/formStudy.php"); //we initialize the request
-	xhttpFour.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttpFour.send(parsedFormDataObject);
+        gatherFormData('importantForm');
+        parseFormDataObject();
+        document.getElementById('payloadHolder').innerHTML = "PAYLOAD<br>" + parsedFormDataObject;
+        xhttpFour.open("POST", "services/formStudy.php"); //we initialize the request
+        xhttpFour.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpFour.send(parsedFormDataObject);
 	}    
     function readDatabaseReadTableCreateForm(){
-    gatherFormData('readDatabaseForm');
-    parseFormDataObject();
- 	xhttpFive.open("POST", "services/readTable.php"); //we initialize the request
-	xhttpFive.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttpFive.send(parsedFormDataObject);
+        gatherFormData('readDatabaseForm');
+        parseFormDataObject();
+        xhttpFive.open("POST", "services/readTable.php"); //we initialize the request
+        xhttpFive.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpFive.send(parsedFormDataObject);
     }
     function createTable(){
-    gatherFormData('createTableForm');
-    parseFormDataObject(); //parses global formData object that gatherFormData() created;
-	xhttpSeven.open("POST", "services/createTable.php"); //we initialize the request
-	xhttpSeven.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttpSeven.send(parsedFormDataObject);
+        gatherFormData('createTableForm');
+        parseFormDataObject(); //parses global formData object that gatherFormData() created;
+        xhttpSeven.open("POST", "services/createTable.php"); //we initialize the request
+        xhttpSeven.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpSeven.send(parsedFormDataObject);
     }
     function dropTable(){
-    gatherFormData('dropTableForm');
-    parseFormDataObject(); //parses global formData object that gatherFormData() created;
-	xhttpTwelve.open("POST", "services/dropTable.php"); //we initialize the request
-	xhttpTwelve.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttpTwelve.send(parsedFormDataObject);
+        gatherFormData('dropTableForm');
+        parseFormDataObject(); //parses global formData object that gatherFormData() created;
+        xhttpTwelve.open("POST", "services/dropTable.php"); //we initialize the request
+        xhttpTwelve.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpTwelve.send(parsedFormDataObject);
     }
     function returnSchema(){
-	xhttpEight.open("POST", "services/showDatabases.php"); //we initialize the request
-	xhttpEight.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttpEight.send();
+        xhttpEight.open("POST", "services/showDatabases.php"); //we initialize the request
+        xhttpEight.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpEight.send();
     }
     function returnAllTables(){
-    gatherFormData('returnTablesForm');
-    parseFormDataObject(); //parses global formData object that gatherFormData() created;
-	xhttpTen.open("POST", "services/showTables.php"); //we initialize the request
-	xhttpTen.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttpTen.send(parsedFormDataObject);
+        gatherFormData('returnTablesForm');
+        parseFormDataObject(); //parses global formData object that gatherFormData() created;
+        xhttpTen.open("POST", "services/showTables.php"); //we initialize the request
+        xhttpTen.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpTen.send(parsedFormDataObject);
     }
     function insertRow(){
-    gatherFormData('insertRowForm');
-    parseFormDataObject();
- 	xhttpNine.open("POST", "services/insertRow.php"); //we initialize the request
-	xhttpNine.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttpNine.send(parsedFormDataObject);
+        gatherFormData('insertRowForm');
+        parseFormDataObject();
+        xhttpNine.open("POST", "services/insertRow.php"); //we initialize the request
+        xhttpNine.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpNine.send(parsedFormDataObject);
     }
     function sendEmail(){
-    gatherFormData('sendEmail');
-    parseFormDataObject();
-	xhttpSix.open("POST", "services/sendEmail.php"); //we initialize the request
-	xhttpSix.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttpSix.send(parsedFormDataObject);
+        gatherFormData('sendEmail');
+        parseFormDataObject();
+        xhttpSix.open("POST", "services/sendEmail.php"); //we initialize the request
+        xhttpSix.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpSix.send(parsedFormDataObject);
     }
     function download() {
-    xhttpEleven.open("GET", "./services/returnZip.php", true);
-    xhttpEleven.responseType = "blob";
-    var progressBar={};
-    xhttpEleven.onprogress = function(e) {
-    fileTotal = xhttpEleven.getResponseHeader('Content-Length');
-    percentLoaded = e.loaded/fileTotal;
-    console.log(e.loaded);
-    console.log(fileTotal);
-    console.log(percentLoaded);
-    document.getElementById('bingo').innerHTML=""; //clear svg container
-    drawCircle(percentLoaded);
-    };
+        xhttpEleven.open("GET", "./services/returnZip.php", true);
+        xhttpEleven.responseType = "blob";
+        var progressBar={};
+        xhttpEleven.onprogress = function(e) {
+        fileTotal = xhttpEleven.getResponseHeader('Content-Length');
+        percentLoaded = e.loaded/fileTotal;
+        console.log(e.loaded);
+        console.log(fileTotal);
+        console.log(percentLoaded);
+        document.getElementById('bingo').innerHTML=""; //clear svg container
+        drawCircle(percentLoaded);
+    }
     xhttpEleven.onloadstart = function() {
-    console.log('load start');
-    document.getElementById('downloadIcon').style.display="none";
-    document.getElementById('spinnerIcon').style.display="block";
-    };
-    xhttpEleven.onloadend = function() {
-    console.log('load end');
-    document.getElementById('downloadIcon').style.display="block";
-    document.getElementById('spinnerIcon').style.display="none";
-    document.getElementById('bingo').innerHTML=""; //clear svg container
-    var url = window.URL.createObjectURL(new Blob([xhttpEleven.response]));
-    var a = document.createElement('a');
-    document.body.appendChild(a);
-    a.setAttribute('style', 'display: none');
-    a.href = url;
-    a.download = 'niceDownload.zip';
-    a.click();
-    };
-    xhttpEleven.send();
+        console.log('load start');
+        document.getElementById('downloadIcon').style.display="none";
+        document.getElementById('spinnerIcon').style.display="block";
+        };
+        xhttpEleven.onloadend = function() {
+        console.log('load end');
+        document.getElementById('downloadIcon').style.display="block";
+        document.getElementById('spinnerIcon').style.display="none";
+        document.getElementById('bingo').innerHTML=""; //clear svg container
+        var url = window.URL.createObjectURL(new Blob([xhttpEleven.response]));
+        var a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = 'niceDownload.zip';
+        a.click();
+        };
+        xhttpEleven.send();
     }
 	function pythonTest(){
-    console.log("pythonTest() ran");
-	xhttpThirteen.open("GET", "http://localhost:5020/", true); //we initialize the request
-	xhttpThirteen.send();
+        gatherFormData('pythonForm');
+        parseFormDataObject();
+        xhttpFour.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpThirteen.open("POST", "http://localhost:5020/", true); //we initialize the request
+        console.log(parsedFormDataObject);
+        xhttpThirteen.send(parsedFormDataObject);
 	}
 	
     //HTTP Request State Monitoring & Response Handling Functions 
