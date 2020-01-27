@@ -5,6 +5,10 @@ def application(env, start_response):
 	('Content-Type','text/html'),
 	('Access-Control-Allow-Origin', '*')
 	])
-	form = cgi.FieldStorage()
-	print(form["firstName"])
-	return [b"Hello World!"]
+	data = cgi.FieldStorage()
+	print("Content-Type: text/html\n")
+	print("The foo firstName is: " + data["firstName"].value)
+	print("<br />")
+	print("The bar occupation is: " + data["occupation"].value)
+	print("<br />")
+	return(data)
