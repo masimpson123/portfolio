@@ -1,4 +1,5 @@
 import requests
+import cgi
 
 def application(env, start_response):
 	start_response('200 OK', [
@@ -9,6 +10,6 @@ def application(env, start_response):
 	form = cgi.FieldStorage().getvalue("firstName")
 	
 	print("raw POST data:")
-	print(sys.stdin.read())
+	print(request.POST.get("firstName", "default"))
 
 	return [b"HELLO WORLD!"]
