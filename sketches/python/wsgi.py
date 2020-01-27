@@ -1,4 +1,5 @@
 import mysql.connector
+import json
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -24,4 +25,6 @@ def application(env, start_response):
 		#mycursor.execute(sql)
 		#mydb.commit()
 		#print(mycursor.rowcount, "record inserted.")
-		return [str(name)]
+		test = json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])    
+		test1 = bytes(test, 'utf-8') # or test.encode('utf-8')
+		return [test1]
