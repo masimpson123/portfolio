@@ -26,5 +26,8 @@ def application(env, start_response):
 		mydb.commit()
 		print(mycursor.rowcount, "record inserted.")
 		injectedData = json.dumps([{'name':name,'occupation':occupation}])    
-		injectedDataEncoded = injectedData.encode('utf-8')
-		return [test1]
+		injectedDataEncoded = bytes(injectedData, 'utf-8') # or test.encode('utf-8')
+		#if personList is None:
+		#	print "No values in personList"
+		#else:
+		#return [injectedDataEncoded]
