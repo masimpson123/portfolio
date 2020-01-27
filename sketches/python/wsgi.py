@@ -6,6 +6,7 @@ def application(env, start_response):
 	])
 
 	print(env)
-	print(env['QUERY_STRING'])
+	print(env['HTTP_FIRSTNAME'])
+	print(env['HTTP_OCCUPATION'])
 
 	return [b"HELLO WORLD!"]
