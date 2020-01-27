@@ -358,6 +358,7 @@
         //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
         console.log('xhttpThirteen STATUS: ' + xhttpThirteen.status);
         if(xhttpThirteen.readyState == 4){
+        console.log(xhttpThirteen.response);
         document.getElementById('pythonTestResponseHolder').innerHTML = xhttpThirteen.response;
         }
 	}
