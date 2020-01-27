@@ -241,7 +241,7 @@
         xhttpThirteen.setRequestHeader("firstName", "Michael");
         xhttpThirteen.setRequestHeader("occupation", "Software Developer");
         console.log(parsedFormDataObject);
-        xhttpThirteen.send();
+        xhttpThirteen.send("fname=Henry&lname=Ford");
 	}
 	
     //HTTP Request State Monitoring & Response Handling Functions 
