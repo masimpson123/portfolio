@@ -1,4 +1,14 @@
-import os
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="theEarth123$",
+  database="python",
+  auth_plugin='mysql_native_password'
+)
+
+mycursor = mydb.cursor()
 
 def application(env, start_response):
 	start_response('200 OK', [
@@ -8,7 +18,8 @@ def application(env, start_response):
 	])
 
 	if "HTTP_FIRSTNAME" in env and "HTTP_OCCUPATION" in env:
-		print(env['HTTP_FIRSTNAME'])
-		print(env['HTTP_OCCUPATION'])
+		name = env['HTTP_FIRSTNAME']
+		occupation = env['HTTP_OCCUPATION']
+		sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
 
 	return [b"HELLO WORLD!"]
