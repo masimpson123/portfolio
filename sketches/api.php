@@ -236,8 +236,8 @@
 	function pythonTest(){
         gatherFormData('pythonForm');
         parseFormDataObject();
-        xhttpFour.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttpThirteen.open("POST", "http://localhost:5020/", true); //we initialize the request
+        xhttpThirteen.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         console.log(parsedFormDataObject);
         xhttpThirteen.send(parsedFormDataObject);
 	}
@@ -699,7 +699,15 @@
     <h2>PYTHON TEST</h2>
     <br>
     <br>
-
+        
+	<form id="pythonForm">
+		WHAT IS YOUR FIRST NAME?
+		<input type="text" name="firstName">
+		<br>
+		WHAT IS YOUR OCCUPATION?
+		<input type="text" name="occupation">
+		<br>
+	</form>	
     <div class="button noSelect" onclick="pythonTest()">Python Test</div>   
     <div id="pythonTestResponseHolder"></div>
     
