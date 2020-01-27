@@ -13,15 +13,15 @@ def application(env, start_response):
 	firstName = d.get('firstName', [''])[0]
 	occupation = d.get('occupation', [''])[0]
 
-	response_body = html % { # Fill the above html template in
-	'checked-software': ('', 'checked')['software' in hobbies],
-	'checked-tunning': ('', 'checked')['tunning' in hobbies],
-	'age': age or 'Empty',
-	'hobbies': ', '.join(hobbies or ['No Hobbies?'])
+	response_body = {
+		'firstName': firstName or 'Empty',
+		'occupation': occupation or 'Empty',
 	}
 
 	start_response('200 OK', [
 	('Content-Type','text/html'),
 	('Access-Control-Allow-Origin', '*')
 	])
-	return [b"Hello World!"]
+
+	#return [b"Hello World!"]
+	return response_body
