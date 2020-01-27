@@ -13,22 +13,22 @@
 	var xhttpTwo = new XMLHttpRequest(); //used to return list of file paths
 	var xhttpThree = new XMLHttpRequest(); //used to return weather data
 	var xhttpFour = new XMLHttpRequest(); //used to send form data to server
-    	var xhttpFive = new XMLHttpRequest(); //used to read MySQL database
-    	var xhttpSix = new XMLHttpRequest(); //used to send an Email
-    	var xhttpSeven = new XMLHttpRequest(); //used to create a MySQL table
-    	var xhttpEight = new XMLHttpRequest(); //used to return all MySQL databases
-    	var xhttpNine = new XMLHttpRequest(); //used to insert a row in a table
-    	var xhttpTen = new XMLHttpRequest(); //used to return all tables of one database
-    	var xhttpEleven = new XMLHttpRequest(); //used to create custom download progress
-    	var xhttpTwelve = new XMLHttpRequest(); //used to delete a MySQL table
+    var xhttpFive = new XMLHttpRequest(); //used to read MySQL database
+    var xhttpSix = new XMLHttpRequest(); //used to send an Email
+    var xhttpSeven = new XMLHttpRequest(); //used to create a MySQL table
+    var xhttpEight = new XMLHttpRequest(); //used to return all MySQL databases
+    var xhttpNine = new XMLHttpRequest(); //used to insert a row in a table
+    var xhttpTen = new XMLHttpRequest(); //used to return all tables of one database
+    var xhttpEleven = new XMLHttpRequest(); //used to create custom download progress
+    var xhttpTwelve = new XMLHttpRequest(); //used to delete a MySQL table
 	var xhttpThirteen = new XMLHttpRequest(); //python test
 	
 	var arrayOfAllImages = []; //object we pass to PHP using $_POST superglobal
 	var filePathsArray = [];
 	var formData = {}; //object we pass to PHP using $_POST superglobal
 	var parsedFormDataObject = "";
-    	var fileTotal = 0;
-    	var percentLoaded = 0;
+    var fileTotal = 0;
+    var percentLoaded = 0;
 	
 	function addImage(){ //we populate our array of images
 	for(i=0;i<document.getElementById('fileMaster').files.length;i++){
@@ -354,7 +354,7 @@
         //200:OK  -  403:FORBIDDEN  -  404:PAGE NOT FOUND
         console.log('xhttpThirteen STATUS: ' + xhttpThirteen.status);
         if(xhttpThirteen.readyState == 4){
-        document.getElementById('droppedTableResponseHolder').innerHTML = xhttpThirteen.response;
+        document.getElementById('pythonTestResponseHolder').innerHTML = xhttpThirteen.response;
         }
 	}
 	
