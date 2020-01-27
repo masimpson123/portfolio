@@ -7,15 +7,9 @@ def application(env, start_response):
 	('Access-Control-Allow-Origin', '*')
 	])
 
-	POST={}
-	args=sys.stdin.read().split('&')
-
-	for arg in args: 
-		t=arg.split('=')
-		if len(t)>1: k, v=arg.split('='); POST[k]=v
-
 	form = cgi.FieldStorage().getvalue("firstName")
 	
-	print(POST.get('firstName'))
+	print("raw POST data:")
+	print(sys.stdin.read())
 
 	return [b"HELLO WORLD!"]
