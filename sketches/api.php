@@ -233,12 +233,12 @@
     xhttpEleven.send();
     }
 	function pythonTest(){
-    	console.log("pythonTest() ran");
+    console.log("pythonTest() ran");
 	xhttpThirteen.open("GET", "http://localhost:5020/", true); //we initialize the request
 	xhttpThirteen.send();
 	}
 	
-    //HTTP Request State Monitoring Functions
+    //HTTP Request State Monitoring & Response Handling Functions 
 	xhttpOne.onreadystatechange = function() { //Tutorials want me to monitor status and ready state for reason...
         //0:REQUEST NOT INITIALIZED  -  1:SERVER CONNECTION ESTABLISHED  -  2:REQUEST RECEIVED  -  3:PROCESSING REQUEST  -  4:REQUEST FINISHED AND RESPONSE IS READY
         console.log('xhttpOne READY STATE: ' + xhttpOne.readyState); 
