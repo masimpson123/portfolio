@@ -6,6 +6,6 @@ def application(env, start_response):
 	('Access-Control-Allow-Origin', '*')
 	])
 
-	print(env)
+	print(env.get())
 
 	return [b"HELLO WORLD!"]
