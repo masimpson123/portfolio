@@ -21,5 +21,8 @@ def application(env, start_response):
 		name = env['HTTP_FIRSTNAME']
 		occupation = env['HTTP_OCCUPATION']
 		sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
+		mycursor.execute(sql)
+		mydb.commit()
+		print(mycursor.rowcount, "record inserted.")
 
 	return [b"HELLO WORLD!"]
