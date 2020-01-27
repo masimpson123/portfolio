@@ -235,10 +235,9 @@
     }
 	function pythonTest(){
         gatherFormData('pythonForm');
-        parseFormDataObject();
-        console.log(parsedFormDataObject);
-        console.log(parsedFormDataObject);
-        console.log(parsedFormDataObject);
+        console.log(formData);
+        console.log(formData);
+        console.log(formData);
         xhttpThirteen.open("POST", "http://localhost:5020/", true); //we initialize the request
         xhttpThirteen.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttpThirteen.setRequestHeader("firstName", "Michael");
