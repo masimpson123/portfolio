@@ -1,4 +1,25 @@
+from cgi import parse_qs
+
 def application(env, start_response):
+
+	try:
+		request_body_size = int(env.get('CONTENT_LENGTH', 0))
+	except (ValueError):
+		request_body_size = 0
+
+	request_body = env['wsgi.input'].read(request_body_size)
+	d = parse_qs(request_body)
+
+	firstName = d.get('firstName', [''])[0]
+	occupation = d.get('occupation', [''])[0]
+
+	response_body = html % { # Fill the above html template in
+	'checked-software': ('', 'checked')['software' in hobbies],
+	'checked-tunning': ('', 'checked')['tunning' in hobbies],
+	'age': age or 'Empty',
+	'hobbies': ', '.join(hobbies or ['No Hobbies?'])
+	}
+
 	start_response('200 OK', [
 	('Content-Type','text/html'),
 	('Access-Control-Allow-Origin', '*')
