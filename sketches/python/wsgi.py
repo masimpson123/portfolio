@@ -1,4 +1,5 @@
 import cgi
+import sys
 
 def application(env, start_response):
 	start_response('200 OK', [
@@ -14,9 +15,7 @@ def application(env, start_response):
 		if len(t)>1: k, v=arg.split('='); POST[k]=v
 
 	form = cgi.FieldStorage().getvalue("firstName")
-	print(form)
-	print("BINGO")
-	print("BINGO")
-	print("BINGO")
-	return "HELLO WORLD!"
-	return form
+	
+	print(POST.get('firstName'))
+
+	return [b"HELLO WORLD!"]
