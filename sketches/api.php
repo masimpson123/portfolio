@@ -235,14 +235,11 @@
     }
 	function pythonTest(){
         gatherFormData('pythonForm');
-        console.log(formData);
-        console.log(formData);
-        console.log(formData);
         xhttpThirteen.open("POST", "http://localhost:5020/", true); //we initialize the request
         xhttpThirteen.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttpThirteen.setRequestHeader("firstName", "Michael");
-        xhttpThirteen.setRequestHeader("occupation", "Software Developer");
-        xhttpThirteen.send(parsedFormDataObject);
+        xhttpThirteen.setRequestHeader("firstName", formData.firstName);
+        xhttpThirteen.setRequestHeader("occupation", formData.occupation);
+        xhttpThirteen.send();
 	}
 	
     //HTTP Request State Monitoring & Response Handling Functions 

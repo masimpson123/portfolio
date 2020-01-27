@@ -7,9 +7,8 @@ def application(env, start_response):
 	('Access-Control-Allow-Headers', '*')
 	])
 
-	if "HTTP_FIRSTNAME" in env:
+	if "HTTP_FIRSTNAME" in env and "HTTP_OCCUPATION" in env:
 		print(env['HTTP_FIRSTNAME'])
-	if "HTTP_OCCUPATION" in env:
 		print(env['HTTP_OCCUPATION'])
 
 	return [b"HELLO WORLD!"]
