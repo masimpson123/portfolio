@@ -1,6 +1,4 @@
 import cgi
-import cgitb
-cgitb.enable()
 
 def application(env, start_response):
 	start_response('200 OK', [
@@ -8,10 +6,8 @@ def application(env, start_response):
 	('Access-Control-Allow-Origin', '*')
 	])
 	form = cgi.FieldStorage()
+	firstName = form.getvalue("firstName","(no firs name)")
 	#test = b"BINGO"
-	firstName = form["firstName"]
-	print("BINGO")
-	print(firstName)
 	#print form["username"].value
 	#return(b"HELLO WORLD!")
 	#return(test)
