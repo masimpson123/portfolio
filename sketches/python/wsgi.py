@@ -7,16 +7,11 @@ def application(env, start_response):
 	('Access-Control-Allow-Origin', '*')
 	])
 
-	totalBytes=int(os.environ.get('HTTP_CONTENT_LENGTH'))
-	reqbin=io.open(sys.stdin.fileno(),"rb").read(totalBytes)
-	reqstr=reqbin.decode("utf-8")
-	thejson=json.loads(reqstr)
-
-	print(thejson)
+	raw_data = sys.stdin.read()
 
 	form = cgi.FieldStorage().getvalue("firstName")
 	
 	print("raw POST data:")
-	print("")
+	print(raw_data)
 
 	return [b"HELLO WORLD!"]
