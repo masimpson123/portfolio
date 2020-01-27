@@ -7,10 +7,12 @@ def application(env, start_response):
 	('Access-Control-Allow-Origin', '*')
 	])
 
-	data = sys.stdin.read(int(os.environ.get('HTTP_CONTENT_LENGTH', 0)))
+	totalBytes=int(os.environ.get('HTTP_CONTENT_LENGTH'))
+	reqbin=io.open(sys.stdin.fileno(),"rb").read(totalBytes)
+	reqstr=reqbin.decode("utf-8")
+	thejson=json.loads(reqstr)
 
-	if data:
-		print(list(json.loads(data).keys())) # Prints out keys of json
+	print(thejson)
 
 	form = cgi.FieldStorage().getvalue("firstName")
 	
