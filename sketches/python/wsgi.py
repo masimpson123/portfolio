@@ -8,7 +8,11 @@ def application(env, start_response):
 	('Access-Control-Allow-Origin', '*')
 	])
 	form = cgi.FieldStorage()
-	test = b"BINGO"
+	#test = b"BINGO"
+	firstName = form["firstName"]
+	print("BINGO")
+	print(firstName)
 	#print form["username"].value
 	#return(b"HELLO WORLD!")
-	return(test)
+	#return(test)
+	return(firstName)
