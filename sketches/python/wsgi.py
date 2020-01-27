@@ -21,10 +21,10 @@ def application(env, start_response):
 	if "HTTP_FIRSTNAME" in env and "HTTP_OCCUPATION" in env:
 		name = env['HTTP_FIRSTNAME']
 		occupation = env['HTTP_OCCUPATION']
-		#sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
-		#mycursor.execute(sql)
-		#mydb.commit()
-		#print(mycursor.rowcount, "record inserted.")
-		test = json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])    
-		test1 = bytes(test, 'utf-8') # or test.encode('utf-8')
+		sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
+		mycursor.execute(sql)
+		mydb.commit()
+		print(mycursor.rowcount, "record inserted.")
+		injectedData = json.dumps([{'name':name,'occupation':occupation}])    
+		injectedDataEncoded = injectedData.encode('utf-8')
 		return [test1]
