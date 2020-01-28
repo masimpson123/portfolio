@@ -1,7 +1,5 @@
 import mysql.connector
 import json
-import os
-from os import environ
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -20,13 +18,7 @@ def application(env, start_response):
 	('Access-Control-Allow-Headers', '*')
 	])
 
-	print("-----")
-	print(os.environ)
-	print(os.environ)
-	print(os.environ)
-	print("-----")
-
-	if hasattr(env, "HTTP_FIRSTNAME"):
+	if "HTTP_FIRSTNAME" in env and "HTTP_OCCUPATION" in env:
 		name = env['HTTP_FIRSTNAME']
 		occupation = env['HTTP_OCCUPATION']
 		sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
@@ -36,3 +28,8 @@ def application(env, start_response):
 		injectedData = json.dumps([{'name':name,'occupation':occupation}])    
 		injectedDataEncoded = bytes(injectedData, 'utf-8')
 		return [injectedDataEncoded]
+
+# KNOWN ISSUES:
+# A non-fatal error appears in the uWSGI terminal (TypeError: 'NoneType' object is not iterable)
+# Each request results in two requests
+# I believe this is because I'm using custom headers
