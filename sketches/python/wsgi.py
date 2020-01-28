@@ -18,7 +18,11 @@ def application(env, start_response):
 	('Access-Control-Allow-Headers', '*')
 	])
 
-	if env['REQUEST_METHOD'] = 'OPTIONS'
+	print(env["REQUEST_METHOD"])
+	print(env["REQUEST_METHOD"])
+	print(env["REQUEST_METHOD"])
+
+	if env["REQUEST_METHOD"] == "OPTIONS":
 		print("CORS requires an pre-flight options request")
 	else:
 		name = env['HTTP_FIRSTNAME']
