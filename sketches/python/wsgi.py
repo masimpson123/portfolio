@@ -1,5 +1,7 @@
 import mysql.connector
 import json
+import os
+from os import environ
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -19,9 +21,9 @@ def application(env, start_response):
 	])
 
 	print("-----")
-	print(env)
-	print(env)
-	print(env)
+	print(os.environ)
+	print(os.environ)
+	print(os.environ)
 	print("-----")
 
 	if "HTTP_FIRSTNAME" in env and "HTTP_OCCUPATION" in env:
