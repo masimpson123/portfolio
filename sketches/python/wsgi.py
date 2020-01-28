@@ -18,7 +18,9 @@ def application(env, start_response):
 	('Access-Control-Allow-Headers', '*')
 	])
 
-	if "HTTP_FIRSTNAME" in env and "HTTP_OCCUPATION" in env:
+	if env['REQUEST_METHOD'] = 'OPTIONS'
+		print("CORS requires an pre-flight options request")
+	else:
 		name = env['HTTP_FIRSTNAME']
 		occupation = env['HTTP_OCCUPATION']
 		sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
