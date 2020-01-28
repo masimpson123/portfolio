@@ -26,5 +26,5 @@ def application(env, start_response):
 		mydb.commit()
 		print(mycursor.rowcount, "record inserted.")
 		injectedData = json.dumps([{'name':name,'occupation':occupation}])    
-		injectedDataEncoded = bytes(injectedData, 'utf-8') # or test.encode('utf-8')
+		injectedDataEncoded = bytes(injectedData, 'utf-8')
 		return [injectedDataEncoded]
