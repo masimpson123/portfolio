@@ -26,7 +26,7 @@ def application(env, start_response):
 	print(os.environ)
 	print("-----")
 
-	if "HTTP_FIRSTNAME" in env and "HTTP_OCCUPATION" in env:
+	if hasattr(env, "HTTP_FIRSTNAME"):
 		name = env['HTTP_FIRSTNAME']
 		occupation = env['HTTP_OCCUPATION']
 		sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
