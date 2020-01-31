@@ -31,6 +31,10 @@ def application(env, start_response):
 		injectedDataEncoded = bytes(injectedData, 'utf-8')
 		return [injectedDataEncoded]
 
+f = open("pythonReadWrite.txt", "r")
+print(f.readline())
+f.close()
+
 # KNOWN ISSUES:
 # A non-fatal error appears in the uWSGI terminal (TypeError: 'NoneType' object is not iterable).
 # Each request results in two requests.
@@ -38,3 +42,5 @@ def application(env, start_response):
 # We want to avoid Cross Origin Resource Sharing (CORS).
 # CORS necessitates a 'pre-flight' request that confirms it is safe to send the real request.
 # We avoid CORS by hosting everything on the same server.
+#
+# The return function seems to only work with data that has been converted to bytes.
