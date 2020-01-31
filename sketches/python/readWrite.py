@@ -14,7 +14,7 @@ def writeToFile():
 	f.close()
 
 def readTheFile():
-	f = open("demofile.txt", "r")
+	f = open("pythonReadWrite.txt", "r")
 	for x in f:
 		print(x)
 	f.close()
