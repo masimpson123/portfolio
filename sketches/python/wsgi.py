@@ -31,10 +31,6 @@ def application(env, start_response):
 		injectedDataEncoded = bytes(injectedData, 'utf-8')
 		return [injectedDataEncoded]
 
-f = open("pythonReadWrite.txt", "r")
-print(f.readline())
-f.close()
-
 # KNOWN ISSUES:
 # A non-fatal error appears in the uWSGI terminal (TypeError: 'NoneType' object is not iterable).
 # Each request results in two requests.
