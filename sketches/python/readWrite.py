@@ -1,8 +1,8 @@
-import os
-
 def application(env, start_response):
 	start_response('200 OK', [('Content-type', 'text/plain')])
-	print(os.environ)
+	print(start_response)
+	print(env)
+	writeToFile()
 
 def writeToFile():
 	import random
@@ -10,5 +10,3 @@ def writeToFile():
 	f = open("pythonReadWrite.txt", "a")
 	f.write(newContent + "\n")
 	f.close()
-
-writeToFile()
