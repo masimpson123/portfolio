@@ -11,11 +11,10 @@ def application(env, start_response):
 
 	
 	f = open("pythonReadWrite.txt", "a")
-	f.write(newContent)
+	f.write(newContent + "\n")
 	f.close()
 
-	f.open("pythonReadWrite.txt", "r")
-	f.write(newContent)
+	f = open("pythonReadWrite.txt", "r")
 	for x in f:
 		print(x)
 	f.close()
