@@ -3,6 +3,7 @@ def application(env, start_response):
 	if env["REQUEST_URI"] == "/":
 		writeToFile()
 		readTheFile()
+		#deleteTheFile()
 	else:
 		pass
 
@@ -18,3 +19,10 @@ def readTheFile():
 	for x in f:
 		print(x)
 	f.close()
+
+def deleteTheFile():
+	import os
+	if os.path.exists("pythonReadWrite.txt"):
+		os.remove("pythonReadWrite.txt")
+	else:
+		print("The file does not exist")
