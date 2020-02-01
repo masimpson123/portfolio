@@ -38,6 +38,15 @@ def analyzeRelationship():
 	y = df['CO2']
 
 	regr = linear_model.LinearRegression()
+
+	print(regr)
+	print(regr)
+	print(regr)
+	print(regr)
+	print(regr)
+
 	regr.fit(X, y)
 
+	print("The relationship between 1 unit of engine volume and 1 unit of carbon emissions:")
+	print("The relationship between 1 unit of vehicle volume and 1 unit of carbon emissions:")
 	print(regr.coef_)
