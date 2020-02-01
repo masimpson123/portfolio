@@ -21,9 +21,9 @@ def application(env, start_response):
 	if env["REQUEST_METHOD"] == "OPTIONS":
 		print("CORS requires an pre-flight options request")
 	else:
-		# insertNewEntry()
+		insertNewEntry()
 		# ShowTables()
-		deleteMichaels()
+		# deleteEntriesByName()
 
 def insertNewEntry():
 	name = env['HTTP_FIRSTNAME']
@@ -41,8 +41,8 @@ def showTables():
 	for x in mycursor:
 		print(x)
 
-def deleteMichaels():
-	sql = "DELETE FROM users WHERE name = %s"
+def deleteEntriesByName():
+	sql = "DELETE FROM users WHERE name = %s" # %s has a security feature that prevents SQL Injection. It 'escapes' the characters.
 	nam = ("Kate", )
 	mycursor.execute(sql, nam)
 	mydb.commit()
