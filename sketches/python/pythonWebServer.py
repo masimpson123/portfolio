@@ -4,11 +4,11 @@ import mysql.connector
 import json
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="theEarth123$",
-  database="python",
-  auth_plugin='mysql_native_password'
+	host="localhost",
+	user="root",
+	passwd="theEarth123$",
+	database="python",
+	auth_plugin='mysql_native_password'
 )
 
 mycursor = mydb.cursor()
@@ -20,14 +20,14 @@ def application(env, start_response):
 	('Access-Control-Allow-Headers', '*')
 	])
 
-	if env["REQUEST_METHOD"] == "OPTIONS":
+	if env["REQUEST_METHOD"] == "OPTIONS" or env["REQUEST_URI"] != "/":
 		print("CORS requires an pre-flight options request")
 	else:
 		# insertNewEntry(env)
 		# ShowTables()
 		# deleteEntriesByName()
 		# updateOccupation()
-		# joinTwoTables
+		joinTwoTables()
 
 def insertNewEntry(env):
 	name = env['HTTP_FIRSTNAME']
@@ -62,15 +62,15 @@ def joinTwoTables():
 
 	sql = "SELECT \
 		users.occupation AS user, \
-		pay.occupation AS favorite \
+		pay.salary AS pay \
 		FROM users \
-		INNER JOIN products ON users.fav = products.id"
+		INNER JOIN pay ON users.occupation = pay.occupation"
 
-	sql = "SELECT \
-		users.name AS user, \
-		products.name AS favorite \
-		FROM users \
-		INNER JOIN products ON users.fav = products.id"
+	# sql = "SELECT \
+	#	users.name AS user, \
+	#	products.name AS favorite \
+	#	FROM users \
+	#	INNER JOIN products ON users.fav = products.id"
 
 	mycursor.execute(sql)
 
