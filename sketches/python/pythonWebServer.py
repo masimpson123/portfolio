@@ -23,11 +23,11 @@ def application(env, start_response):
 	if env["REQUEST_METHOD"] == "OPTIONS" or env["REQUEST_URI"] != "/":
 		print("CORS requires an pre-flight options request")
 	else:
-		# insertNewEntry(env)
+		insertNewEntry(env)
 		# ShowTables()
 		# deleteEntriesByName()
 		# updateOccupation()
-		joinTwoTables()
+		# joinTwoTables()
 
 def insertNewEntry(env):
 	name = env['HTTP_FIRSTNAME']
