@@ -49,9 +49,4 @@ def analyzeRelationship():
 	# SKLearn provides a prediction of what the dependent variable would equal:
 	predictedCO2 = regr.predict([[2300, 1300]])
 	print(predictedCO2)
-	print(predictedCO2)
-	print(predictedCO2)
-	print(predictedCO2)
-	print(predictedCO2)
-	print(predictedCO2)
 	
