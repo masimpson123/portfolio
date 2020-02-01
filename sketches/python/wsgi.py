@@ -21,6 +21,9 @@ def application(env, start_response):
 	if env["REQUEST_METHOD"] == "OPTIONS":
 		print("CORS requires an pre-flight options request")
 	else:
+		# mycursor.execute("SHOW TABLES")
+		# for x in mycursor:
+		# 	print(x)
 		name = env['HTTP_FIRSTNAME']
 		occupation = env['HTTP_OCCUPATION']
 		sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
