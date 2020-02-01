@@ -21,18 +21,31 @@ def application(env, start_response):
 	if env["REQUEST_METHOD"] == "OPTIONS":
 		print("CORS requires an pre-flight options request")
 	else:
-		# mycursor.execute("SHOW TABLES")
-		# for x in mycursor:
-		# 	print(x)
-		name = env['HTTP_FIRSTNAME']
-		occupation = env['HTTP_OCCUPATION']
-		sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
-		mycursor.execute(sql)
-		mydb.commit()
-		print(mycursor.rowcount, "record inserted.")
-		injectedData = json.dumps([{'name':name,'occupation':occupation}])    
-		injectedDataEncoded = bytes(injectedData, 'utf-8')
-		return [injectedDataEncoded]
+		# insertNewEntry()
+		# ShowTables()
+		deleteMichaels()
+
+def insertNewEntry():
+	name = env['HTTP_FIRSTNAME']
+	occupation = env['HTTP_OCCUPATION']
+	sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
+	mycursor.execute(sql)
+	mydb.commit()
+	print(mycursor.rowcount, "record inserted.")
+	injectedData = json.dumps([{'name':name,'occupation':occupation}])    
+	injectedDataEncoded = bytes(injectedData, 'utf-8')
+	return [injectedDataEncoded]
+
+def showTables():
+	mycursor.execute("SHOW TABLES")
+	for x in mycursor:
+		print(x)
+
+def deleteMichaels():
+	sql = "DELETE FROM users WHERE name = %s"
+	nam = ("Kate", )
+	mycursor.execute(sql, nam)
+	mydb.commit()
 
 # KNOWN ISSUES:
 # A non-fatal error appears in the uWSGI terminal (TypeError: 'NoneType' object is not iterable).
