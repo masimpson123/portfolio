@@ -23,10 +23,11 @@ def application(env, start_response):
 	if env["REQUEST_METHOD"] == "OPTIONS":
 		print("CORS requires an pre-flight options request")
 	else:
-		insertNewEntry(env)
+		# insertNewEntry(env)
 		# ShowTables()
 		# deleteEntriesByName()
 		# updateOccupation()
+		# joinTwoTables
 
 def insertNewEntry(env):
 	name = env['HTTP_FIRSTNAME']
@@ -54,6 +55,10 @@ def updateOccupation():
 	sql = "UPDATE users SET occupation = 'Dog Superhero' WHERE occupation = 'Dog Sidekick'"
 	mycursor.execute(sql)
 	mydb.commit()
+
+def joinTwoTables():
+	# Ensure user's occupation is available in pay table:
+	# insert into pay (occupation, salary) values (’Software Developer’, ‘$150000’);
 
 # KNOWN ISSUES:
 # A non-fatal error appears in the uWSGI terminal (TypeError: 'NoneType' object is not iterable).
