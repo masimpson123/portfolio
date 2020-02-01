@@ -47,6 +47,12 @@ def deleteEntriesByName():
 	mycursor.execute(sql, nam)
 	mydb.commit()
 
+def updateOccupation():
+	sql = "DELETE FROM users WHERE name = %s" # %s has a security feature that prevents SQL Injection. It 'escapes' the characters.
+	nam = ("Kate", )
+	mycursor.execute(sql, nam)
+	mydb.commit()
+
 # KNOWN ISSUES:
 # A non-fatal error appears in the uWSGI terminal (TypeError: 'NoneType' object is not iterable).
 # Each request results in two requests.
