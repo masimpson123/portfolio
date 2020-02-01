@@ -60,6 +60,25 @@ def joinTwoTables():
 	# Ensure user's occupation is available in pay table:
 	# insert into pay (occupation, salary) values (’Software Developer’, ‘$150000’);
 
+	sql = "SELECT \
+		users.occupation AS user, \
+		pay.occupation AS favorite \
+		FROM users \
+		INNER JOIN products ON users.fav = products.id"
+
+	sql = "SELECT \
+		users.name AS user, \
+		products.name AS favorite \
+		FROM users \
+		INNER JOIN products ON users.fav = products.id"
+
+	mycursor.execute(sql)
+
+	myresult = mycursor.fetchall()
+
+	for x in myresult:
+		print(x)
+
 # KNOWN ISSUES:
 # A non-fatal error appears in the uWSGI terminal (TypeError: 'NoneType' object is not iterable).
 # Each request results in two requests.
