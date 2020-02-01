@@ -1,3 +1,5 @@
+# THIS WEB SERVER MUST BE HOSTED AT LOCALHOST:5020 TO BE COMPATIBLE WITH API.PHP
+
 import mysql.connector
 import json
 
@@ -21,12 +23,12 @@ def application(env, start_response):
 	if env["REQUEST_METHOD"] == "OPTIONS":
 		print("CORS requires an pre-flight options request")
 	else:
-		insertNewEntry()
+		insertNewEntry(env)
 		# ShowTables()
 		# deleteEntriesByName()
 		# updateOccupation()
 
-def insertNewEntry():
+def insertNewEntry(env):
 	name = env['HTTP_FIRSTNAME']
 	occupation = env['HTTP_OCCUPATION']
 	sql = "INSERT INTO users (name, occupation) VALUES ('" + name + "','" + occupation + "');"
