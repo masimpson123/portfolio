@@ -4,6 +4,7 @@ def application(env, start_response):
 		writeToFile()
 		readTheFile()
 		#deleteTheFile()
+		analyzeRelationship()
 	else:
 		pass
 
@@ -26,3 +27,5 @@ def deleteTheFile():
 		os.remove("pythonReadWrite.txt")
 	else:
 		print("The file does not exist")
+
+def analyzeRelationship():
