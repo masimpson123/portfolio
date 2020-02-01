@@ -39,14 +39,19 @@ def analyzeRelationship():
 
 	regr = linear_model.LinearRegression()
 
-	print(regr)
-	print(regr)
-	print(regr)
-	print(regr)
-	print(regr)
+	regr.fit(X, y) # Inject our data into the linear regression object
 
-	regr.fit(X, y)
-
-	print("The relationship between 1 unit of engine volume and 1 unit of carbon emissions:")
-	print("The relationship between 1 unit of vehicle volume and 1 unit of carbon emissions:")
+	# The relationship between 1 unit of engine volume and 1 unit of carbon emissions:
+	# The relationship between 1 unit of vehicle volume and 1 unit of carbon emissions:
 	print(regr.coef_)
+
+	# We provide values for our independent variables:
+	# SKLearn provides a prediction of what the dependent variable would equal:
+	predictedCO2 = regr.predict([[2300, 1300]])
+	print(predictedCO2)
+	print(predictedCO2)
+	print(predictedCO2)
+	print(predictedCO2)
+	print(predictedCO2)
+	print(predictedCO2)
+	
