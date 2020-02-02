@@ -2,7 +2,9 @@ import pymongo
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
-mydb = myclient["mydatabase"]
+mydb = myclient["mydatabase"] # create database
+
+mycol = mydb["customers"] # create collection
 
 def application(env, start_response):
 	start_response('200 OK', [
