@@ -1,15 +1,8 @@
-import mysql.connector
-import json
+import pymongo
 
-mydb = mysql.connector.connect(
-	host="localhost",
-	user="root",
-	passwd="theEarth123$",
-	database="python",
-	auth_plugin='mysql_native_password'
-)
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
-mycursor = mydb.cursor()
+mydb = myclient["mydatabase"]
 
 def application(env, start_response):
 	start_response('200 OK', [
