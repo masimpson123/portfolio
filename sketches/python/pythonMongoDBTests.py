@@ -15,5 +15,5 @@ def application(env, start_response):
 		mydict = { "name": "Peter", "address": "Lowstreet 27" } # data
 		x = mycol.insert_one(mydict)
 		print(x.inserted_id)
-		x = mycol.find_one()
-		print(x)
+		for x in mycol.find({},{ "_id": 0, "name": 1, "address": 1 }):
+  			print(x)
