@@ -66,12 +66,6 @@ def joinTwoTables():
 		FROM users \
 		INNER JOIN pay ON users.occupation = pay.occupation"
 
-	# sql = "SELECT \
-	#	users.name AS user, \
-	#	products.name AS favorite \
-	#	FROM users \
-	#	INNER JOIN products ON users.fav = products.id"
-
 	mycursor.execute(sql)
 
 	myresult = mycursor.fetchall()
