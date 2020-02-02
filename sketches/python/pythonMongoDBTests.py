@@ -29,5 +29,5 @@ def application(env, start_response):
 		# x = mycol.insert_many(mylist)
 		# mydict = { "name": "Peter", "address": "Lowstreet 27" } # data
 		# x = mycol.insert_one(mydict)
-		for x in mycol.find({},{ "_id": 0, "name": 1, "address": 1 }).sort("name", -1):
+		for x in mycol.find({},{ "_id": 0, "name": 1, "address": 1 }).sort("name", -1).limit(9):
   			print(x)
