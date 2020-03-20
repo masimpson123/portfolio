@@ -73,18 +73,24 @@ strlen($_GET["maintenance"]) == 1 &&
     $sunriseTomorrow = 0;
     $sunsetTomorrow = 0;
     //Build / Return Response START
-    // weatherbit.io
+    // weatherbit.io credentials:
     // masimpson123@gmail.com
     // b1ng0m1cha3l
+    // hourly forecast through weatherbit:
     // $url = "https://api.weatherbit.io/v2.0/forecast/hourly?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
-    $url = "https://api.weatherbit.io/v2.0/current?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
+    // current weather through weatherbit:
+    // $url = "https://api.weatherbit.io/v2.0/current?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
+    // weather every 3hrs from openweathermap:
+    $url = "http://api.openweathermap.org/data/2.5/forecast/?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96";
     $contents = file_get_contents($url);
     $data = json_decode($contents, TRUE);
-    if($data["data"] == null){
+    //if($data["data"] == null){
+    if($data["list"] == null){
         echo '{"AnalyzedDay":"Endpoint Failure","Counsel":"2","Rationale":""}';
     } else {
         //echo $data;
-        foreach($data["data"] as $item) {
+        //foreach($data["data"] as $item) {
+        foreach($data["list"]["main"] as $item) {
             //Quinn simply analyzes the weather right now until I am willing to pay for the hourly forecast feature.
             //if ($item["ts"] == $roundedTimeIn || $item["ts"] == $roundedTimeOut) {
                 $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
