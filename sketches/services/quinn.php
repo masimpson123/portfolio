@@ -73,6 +73,9 @@ strlen($_GET["maintenance"]) == 1 &&
     $sunriseTomorrow = 0;
     $sunsetTomorrow = 0;
     //Build / Return Response START
+    // weatherbit.io
+    // masimpson123@gmail.com
+    // b1ng0m1cha3l
     $url = "https://api.weatherbit.io/v2.0/forecast/hourly?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
     $contents = file_get_contents($url);
     $data = json_decode($contents, TRUE);
