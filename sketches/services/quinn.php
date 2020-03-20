@@ -90,25 +90,25 @@ strlen($_GET["maintenance"]) == 1 &&
     } else {
         //echo $data;
         //foreach($data["data"] as $item) {
-        foreach($data["list"]["main"] as $item) {
+        foreach($data["list"] as $item) {
             //Quinn simply analyzes the weather right now until I am willing to pay for the hourly forecast feature.
-            //if ($item["ts"] == $roundedTimeIn || $item["ts"] == $roundedTimeOut) {
+            if ($item["dt"] == $roundedTimeIn || $item["dt"] == $roundedTimeOut) {
                 $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
-                if($item["temp"] > $maxTemp){
+                if($item["main"]["temp"] > $maxTemp){
                         $goodWeather = false;
-                        $reasonsToNotBike = $reasonsToNotBike . "Too Hot " . $item["temp"] . " ";
+                        $reasonsToNotBike = $reasonsToNotBike . "Too Hot " . $item["main"]["temp"] . " ";
                 }
-                if($item["temp"] < $minTemp){
+                if($item["main"]["temp"] < $minTemp){
                         $goodWeather = false;
-                        $reasonsToNotBike = $reasonsToNotBike . "Too Cold " . $item["temp"] . " ";
+                        $reasonsToNotBike = $reasonsToNotBike . "Too Cold " . $item["main"]["temp"] . " ";
                 }
-                if(strpos(strtolower($item["weather"]["description"]),"rain") !== false){
+                if(strpos(strtolower($item["weather"][0]["description"]),"rain") !== false){
                     if ($rainTolerance == 0) {
                         $goodWeather = false;
                         $reasonsToNotBike = $reasonsToNotBike . "Rain" . " ";
                     }
                 }
-            //}
+            }
         }
         if($nightRider == 0){
             $url = "http://api.openweathermap.org/data/2.5/weather?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&mode=xml";
