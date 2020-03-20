@@ -7,7 +7,6 @@ is_numeric($_GET["timeIn"]) &&
 is_numeric($_GET["timeOut"]) &&
 is_numeric($_GET["rainTolerance"]) &&
 is_numeric($_GET["nightRider"]) &&
-is_numeric($_GET["parameterUpdate"]) &&
 is_numeric($_GET["maintenance"]) &&
 strlen($_GET["zipcode"]) == 5 &&
 (strlen($_GET["minTemp"]) == 1 || strlen($_GET["minTemp"]) == 2 || strlen($_GET["minTemp"]) == 3) &&
@@ -16,7 +15,6 @@ strlen($_GET["zipcode"]) == 5 &&
 (strlen($_GET["timeOut"]) == 1 || strlen($_GET["timeOut"]) == 2 || strlen($_GET["timeOut"]) == 3 || strlen($_GET["timeOut"]) == 4) &&
 strlen($_GET["rainTolerance"]) == 1 &&
 strlen($_GET["nightRider"]) == 1 &&
-strlen($_GET["parameterUpdate"]) == 1 &&
 strlen($_GET["maintenance"]) == 1 &&
 ($_GET["zipcode"] >= 0 && $_GET["zipcode"] <= 99999) &&
 ($_GET["minTemp"] >= -50 && $_GET["minTemp"] <= 150) &&
@@ -25,7 +23,6 @@ strlen($_GET["maintenance"]) == 1 &&
 ($_GET["timeOut"] >= 0 && $_GET["timeOut"] <= 2400) &&
 ($_GET["rainTolerance"] == 0 || $_GET["rainTolerance"] == 1) &&
 ($_GET["nightRider"] == 0 || $_GET["nightRider"] == 1) &&
-($_GET["parameterUpdate"] == 0 || $_GET["parameterUpdate"] == 1) &&
 ($_GET["maintenance"] == 0 || $_GET["maintenance"] == 1)
 ){
     date_default_timezone_set("America/Chicago");
@@ -36,7 +33,6 @@ strlen($_GET["maintenance"]) == 1 &&
     $timeOut = $_GET["timeOut"];
     $rainTolerance = $_GET["rainTolerance"];
     $nightRider = $_GET["nightRider"];
-    $parameterUpdate = $_GET["parameterUpdate"];
     $maintenance = $_GET["maintenance"];
     $goodWeather = true;
     $analyzedWeather = "";
