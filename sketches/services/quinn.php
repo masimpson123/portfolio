@@ -76,7 +76,8 @@ strlen($_GET["maintenance"]) == 1 &&
     // weatherbit.io
     // masimpson123@gmail.com
     // b1ng0m1cha3l
-    $url = "https://api.weatherbit.io/v2.0/forecast/hourly?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
+    // $url = "https://api.weatherbit.io/v2.0/forecast/hourly?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
+    $url = "https://api.weatherbit.io/v2.0/current?postal_code=" . $zipcode . "&country=United%20States&key=fdf0338583c542c08f395c259700a693&units=I";
     $contents = file_get_contents($url);
     $data = json_decode($contents, TRUE);
     if($data["data"] == null){
@@ -84,7 +85,8 @@ strlen($_GET["maintenance"]) == 1 &&
     } else {
         //echo $data;
         foreach($data["data"] as $item) {
-            if ($item["ts"] == $roundedTimeIn || $item["ts"] == $roundedTimeOut) {
+            //Quinn simply analyzes the weather right now until I am willing to pay for the hourly forecast feature.
+            //if ($item["ts"] == $roundedTimeIn || $item["ts"] == $roundedTimeOut) {
                 $analyzedWeather = $analyzedWeather . "<br>" . json_encode($item);
                 if($item["temp"] > $maxTemp){
                         $goodWeather = false;
@@ -100,7 +102,7 @@ strlen($_GET["maintenance"]) == 1 &&
                         $reasonsToNotBike = $reasonsToNotBike . "Rain" . " ";
                     }
                 }
-            }
+            //}
         }
         if($nightRider == 0){
             $url = "http://api.openweathermap.org/data/2.5/weather?zip=" . $zipcode . "&units=imperial&appid=ae90bbba41d65b1f047a019e0a55de96&mode=xml";
