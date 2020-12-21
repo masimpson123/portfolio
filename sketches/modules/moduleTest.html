@@ -4,13 +4,17 @@
 <script type="module">
 import {bingo} from './module2.js';
 import {keyword} from './module1.js';
-document.getElementById('btn').addEventListener("click",function(){
+document.getElementById('btn1').addEventListener("click",function(){
     bingo(keyword)
+});
+document.getElementById('btn2').addEventListener("click",function(){
+    console.log(singleton);
+    singleton.count += 1;
 });
 </script>
 
 </head>
 <body>
-<button id="btn">BINGO</button>
+<button id="btn1">BINGO</button>
 </body>
 </html>
