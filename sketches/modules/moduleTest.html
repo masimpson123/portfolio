@@ -3,7 +3,10 @@
 
 <script type="module">
 import {bingo} from './module2.js';
-document.getElementById('btn').addEventListener("click",bingo);
+import {keyword} from './module1.js';
+document.getElementById('btn').addEventListener("click",function(){
+    bingo(keyword)
+});
 </script>
 
 </head>
