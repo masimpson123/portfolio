@@ -1,6 +1,5 @@
+import {secretPw} from './module.js';
 
-
-function bingo() {
-    //console.log(secretPw);
-    console.log("hello");
+export function bingo() {
+    console.log(secretPw);
 }

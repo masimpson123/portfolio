@@ -1,8 +1,11 @@
 <html>
 <head>
-<script type="text/javascript" src="main.js"></script>
+<script type="module">
+import {bingo} from './main.js';
+document.getElementById('btn').addEventListener(click,bingo);
+</script>
 </head>
 <body>
-<button onclick="bingo()">BINGO</button>
+<button id="btn">BINGO</button>
 </body>
 </html>
