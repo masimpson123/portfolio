@@ -1,0 +1,1 @@
+export const secretPw = 'b1ng0';
