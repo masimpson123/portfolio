@@ -2,8 +2,9 @@
 <head>
 
 <script type="module">
+// module tests must be run on a web server to prevent CORS errors.
 import {bingo} from './module2.js';
-import {keyword} from './module1.js';
+import {keyword,singleton} from './module1.js';
 document.getElementById('btn1').addEventListener("click",function(){
     bingo(keyword)
 });
@@ -16,5 +17,17 @@ document.getElementById('btn2').addEventListener("click",function(){
 </head>
 <body>
 <button id="btn1">BINGO</button>
+<button id="btn2">SINGLETON1</button>
+<button id="btn3">SINGLETON2</button>
+<script type="module">
+    // singleton is imported twice
+    // both instances point to the same object
+    // thus singleton is a singleton
+    import {singleton} from './module1.js';
+    document.getElementById('btn3').addEventListener("click",function(){
+        console.log(singleton);
+        singleton.count += 1;
+    });
+    </script>
 </body>
 </html>
